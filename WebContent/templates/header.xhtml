@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html">
+
+<body>
+  <ui:composition>
+    <div id="header-container">
+
+	<!--  
+      <f:loadBundle var="l10n" basename="de.unidue.s3.skala.messages" />
+    -->  
+
+      <h:form rendered="#{userController.loggedIn}">
+
+      <!--
+            Displayed if there is a user logged in.
+        -->
+
+        <!-- Link to the landing page -->
+        <div class="header-button">
+          <h:link outcome="/index.xhtml">
+            <h:graphicImage
+              width="16"
+              height="16"
+              library="skala"
+              name="/images/icons/navigation/home.png"/>
+          </h:link>
+        </div>
+
+        <!-- Link to the administration page. -->
+        <h:panelGroup
+            rendered="#{userController.user.admin}"
+            class="header-button">
+          <h:link outcome="/administration/index.xhtml">
+            <h:graphicImage
+              width="16"
+              height="16"
+              library="skala"
+              name="/images/icons/navigation/administration.png"/>
+          </h:link>
+        </h:panelGroup>
+
+        <!-- Link to the admission page. -->
+        <h:panelGroup
+            rendered="#{userController.user.secretary}"
+            class="header-button">
+          <h:link outcome="/admission/index.xhtml">
+            <h:graphicImage
+              width="16"
+              height="16"
+              library="skala"
+              name="/images/icons/navigation/admission.png"/>
+          </h:link>
+        </h:panelGroup>
+
+        <!-- Welcome message for the user. -->
+        <div class="header-button">
+          <h:outputText value="#{l10n['login.welcome']}"/>
+          <h:link
+            outcome="/authenticated/profile.xhtml"
+            value="#{userController.user.email}"/>
+        </div>
+
+        <!-- Logout button --> 
+        <div class="header-button">
+          <h:commandLink
+            action="#{loginController.doLogout}"
+            value="#{l10n['login.logout']}"/>
+        </div>
+      </h:form>
+	
+	   <h:form>
+
+		<div class="header-button">
+          <h:commandLink
+            action="/index.xhtml"
+            value="Home"/>
+        </div>
+        <!-- Link to the login page -->
+        <div class="header-button">
+          <h:commandLink
+            action="/administration.xhtml"
+            value="Administration"/>
+        </div>    
+
+      </h:form> 	
+	  
+      <h:form rendered="#{not userController.loggedIn}">
+
+        <!-- Link to the login page -->
+        <div class="header-button">
+          <h:commandLink
+            outcome="login.xhtml"
+            value="Login"/>
+        </div>    
+
+      </h:form>
+
+    </div>
+  </ui:composition>
+</body>
+
+</html>

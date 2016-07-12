@@ -1,0 +1,67 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml">
+	<ui:define name="content">
+		<h:form>
+			<p:tabView scrollable="true">
+				<p:tab id="seasons" title="Saisons">
+					<p:menubar>
+						<p:menuitem value="Neue Saison" onclick="PF('dlg1').show();"
+							update="allSeasons" />
+						<p:menuitem value="Neue Saisonfolge" onclick="PF('dlg2').show();"
+							update="allSeasons" />
+					</p:menubar>
+					<p:dialog id="dlg1" header="Neue Saison" widgetVar="dlg1"
+						minHeight="40">
+						<h:panelGrid columns="2">
+							<h:outputText value="Start:" />
+							<h:inputText value="#{administrationView.startYear}"
+								id="startYear" />
+							<p:commandButton action="#{administrationView.createSeason()}"
+								value="Erzeugen" update="allSeasons"
+								onclick="PF('dlg1').close();" />
+						</h:panelGrid>
+					</p:dialog>
+					<p:dialog header="Neue Saisonfolge" widgetVar="dlg2" minHeight="40">
+						<h:panelGrid columns="2">
+							<h:outputText value="Start:" />
+							<h:inputText value="#{administrationView.startYearSequence}"
+								id="startYearSequence" />
+							<h:outputText value="Ende:" />
+							<h:inputText value="#{administrationView.endYearSequence}"
+								id="endYearSequence" />
+							<p:commandButton
+								action="#{administrationView.createSeasonSequence()}"
+								value="Erzeugen" update="allSeasons" />
+						</h:panelGrid>
+					</p:dialog>
+					<p:dataList id="allSeasons"
+						value="#{administrationView.allSeasons}" var="item">
+						<h:column>
+							<p:link outcome="/seasonDetails.xhtml"
+								value="#{item.representation}">
+								<f:param id="id" name="id" value="#{item.id}" />
+							</p:link>
+						</h:column>
+					</p:dataList>
+				</p:tab>
+				<p:tab id="teams" title="Mannschaften">
+					<p:dataTable id="allTeamInstances"
+						value="#{administrationView.teams}" var="team">
+						<p:column style="width:16px">
+							<p:rowToggler />
+						</p:column>
+						<p:column headerText="Name">
+							<h:outputText value="#{team.name}" />
+						</p:column>
+					</p:dataTable>
+				</p:tab>
+				<p:tab id="players" title="Spieler">
+				
+				</p:tab>
+			</p:tabView>
+		</h:form>
+	</ui:define>
+</ui:composition>

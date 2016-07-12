@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<h:head>
+  
+		<title>MTG Tischtennis Chronik</title>
+		<meta http-equiv="Content-Type" content="text/html"/>
+
+        <!-- Shortcut icon for Internet Explorer -->
+        <link
+          rel="shortcut icon"
+          type="image/x-icon"
+          href="#{request.contextPath}/favicon.ico"/>
+          
+        <!-- Shortcut icon for all other browser. -->
+        <link
+          rel="icon"
+          type="image/x-icon"
+          href="#{request.contextPath}/favicon.ico"/>
+
+        <!-- Skala's default stylesheet -->
+        <h:outputStylesheet
+          library="skala"
+          name="/css/skala.css"/>
+        
+	</h:head>
+
+	<ui:insert name="metadata" />
+	
+	<h:body>
+      <div id="container">
+
+        <!-- Header area. If undefined header.xhtml is included. -->
+        <div id="header">
+          <ui:insert name="header">
+            <ui:include src="header.xhtml"/>
+          </ui:insert>    
+        </div>
+
+        <!-- The main content area of the application -->
+  		<div id="content">
+          <div id="banner" style="clear: both;">
+          </div>
+
+          <!-- We show a warning bar if the system is in maintenance mode. -->
+          <h:panelGroup rendered="#{userController.admin and maintenanceController.active}">
+            <h2 style="text-align: center;">
+              <h:graphicImage
+                width="24"
+                height="24"
+                library="skala"
+                name="/images/header/h2/warning.png"/>
+              <h:outputText value="#{l10n['maintenance.warning']}"/>
+              <h:graphicImage
+                width="24"
+                height="24"
+                library="skala"
+                name="/images/header/h2/warning.png"/>
+            </h2>  
+          </h:panelGroup>          
+          <!-- If java script is not available we display an error -->
+          <noscript>
+            <div id="noscript-error">
+              <ui:include src="noscript.xhtml"/>            
+            </div>
+          </noscript>
+          
+          <!-- An error message that is displayed if setting cookies failed. -->
+          <div id="cookie-error" style="display: none;">
+            <ui:include src="nocookies.xhtml"/>
+          </div>
+          
+          <!-- The actual page content. -->
+          <div id="page-content" style="display: none;">
+            <ui:insert name="content"/>
+          </div>
+  		</div>
+
+        <!-- We make the page-content section visible via javascript if
+             a cookie was successfully set. Otherwise we show an error
+             message. -->
+        <script type="text/javascript">
+          document.cookie = "jctscript=success; path=/";
+          if (document.cookie.indexOf("jctscript=success") >= 0)
+	      {
+	        document.getElementById("page-content").style.display = "block";
+	      } else {
+    		document.getElementById("cookie-error").style.display = "block";
+    	  }
+        </script>
+
+        <!-- Footer area. If undefined footer.xhtml is included. -->
+  		<div id="footer">
+          <ui:insert name="footer">
+            <ui:include src="footer.xhtml"/>
+	      </ui:insert>
+  		</div>
+
+      </div>
+	</h:body>
+
+</html>

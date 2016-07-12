@@ -1,0 +1,54 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam id="id" name="id" value="#{seasonDetailsView.seasonId}" />
+			<f:viewAction action="#{seasonDetailsView.loadSeason}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<h2>Saison #{seasonDetailsView.season.representation}</h2>
+			<p:fieldset id="availableTeams" legend="Verfügbare Mannschaften">
+				<p:dataList id="allTeams"
+					value="#{seasonDetailsView.teams}" var="item">
+					<h:column>
+						<h:outputText id="teamName" value="#{item.name}" />
+						<p:draggable for="teamName" revert="true" helper="clone" />
+					</h:column>
+				</p:dataList>
+			</p:fieldset>
+
+			<p:fieldset id="selectedTeams" legend="Mannschaften"
+				style="margin-top:20px">
+				<p:outputPanel id="dropArea">
+					<p:dataList id="allTeamInstances"
+						value="#{seasonDetailsView.teamInstancesForSeason}" var="item">
+						<h:column>
+							<p:link outcome="/teamInstanceDetails.xhtml"
+								value="#{item.team.name}">
+								<f:param id="id" name="id" value="#{item.id}" />
+							</p:link>
+						</h:column>
+					</p:dataList>
+				</p:outputPanel>
+			</p:fieldset>
+
+			<p:droppable for="selectedTeams" tolerance="touch"
+				activeStyleClass="ui-state-highlight" datasource="availableTeams"
+				onDrop="handleDrop">
+				<p:ajax listener="#{seasonDetailsView.onTeamDrop}"
+					update="dropArea availableTeams" />
+			</p:droppable>
+
+			<p:commandButton id="save" value="Speichern"
+				action="#{seasonDetailsView.updateTeamInstances()}"
+				style="margin-top:5px" update="allTeamInstances" />
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,317 @@
+/*
+ * Colors for easier copying & pasting
+ *
+ *	blue		rgb(0,76,147)		#004c93
+ *	beige		rgb(239,228,191)	#efe4bf
+ *	pale blue 	rgb(223,228,242)	#dfe4f2
+ *	black		rgb(26,23,27)		#1a171b
+ */
+
+body
+{
+	color:		#1a171b;
+	background: #efe4bf;
+		
+	margin:		0px;
+	border:		0px;
+	padding:	0px;
+	
+	font-family:			Helvetica, Arial, sans-serif;
+	font-kerning:			auto;
+	-webkit-font-smoothing:	subpixel-antialiased;
+}
+
+h1
+{
+	background-color:	#004c93;
+	color:				white;
+
+	margin:				0px;
+	margin-bottom:		0.25em;
+	margin-top:			0.25em;
+}
+
+h1 img
+{
+	vertical-align:		text-bottom;
+	margin:				2px;
+	margin-left:		4px;
+	margin-right: 		6px;
+}
+
+h2
+{
+	background-color:	#dfe4f2;
+	
+	margin: 			0px;
+	margin-bottom: 		0.5em;
+	margin-top: 		0.5em;
+}
+
+img
+{
+		border:			0px; /* We need this for IE 9 & 10 compatibility. =( */
+}
+
+h2 img
+{
+	vertical-align:		text-bottom;
+	margin:				2px;
+	margin-left:		4px;
+	margin-right: 		6px;
+}
+
+form
+{
+	display:	inline;
+	margin:		0px;
+}
+
+a
+{
+		color:	#004c93;
+}
+
+table img
+{
+	vertical-align: text-bottom;
+}
+
+.tile
+{
+	width: 192px;
+}
+
+.task-cloze
+{
+	line-height: 2em;
+	width: 100%;
+}
+
+.task-default
+{
+	width: 100%;
+}
+
+.no-break
+{
+	white-space: nowrap;
+}
+
+/*
+ * Definition for the breadcrumb view.
+ */
+.breadcrumb
+{
+}
+
+.toolbar
+{
+	margin-top:		8px;
+	margin-bottom:	4px;
+	margin-left:	auto;
+	text-align: 	right;
+}
+
+.breadcrumb img
+{
+	vertical-align: text-top;
+}
+
+/*
+ * Definitions for faces messages
+ */
+.faces-message-info
+{
+	background-image:	url(#{resource['skala:images/icons/validation/info.png']});
+	background-repeat:	no-repeat;
+	padding-left:		20px;
+	margin-left:		2px;
+}
+
+.faces-message-warning
+{
+	background-image:	url(#{resource['skala:images/icons/validation/warning.png']});
+	background-repeat:	no-repeat;
+	padding-left:		20px;
+	margin-left:		2px;
+}
+
+.faces-message-error
+{
+	background-image:	url(#{resource['skala:images/icons/validation/error.png']});
+	background-repeat:	no-repeat;
+	padding-left:		20px;
+	margin-left:		2px;
+}
+
+.preview-cross
+{
+	background-image:	url(#{resource['skala:images/icons/validation/cross.png']});
+	background-repeat:	no-repeat;
+	padding-left:		16px;
+	margin-left:		4px;
+}
+
+.preview-tick
+{
+	background-image:	url(#{resource['skala:images/icons/validation/tick.png']});
+	background-repeat:	no-repeat;
+	padding-left:		16px;
+	margin-left:		2px;
+}
+
+/*
+ * Definitions for the faces "messages" element
+ */
+#messages .error td
+{
+	background-image: url(/images/icons/validation/warning.png);
+	background-repeat: no-repeat;
+	padding-left: 16px;
+}
+
+/* Definitions for rich datatables. */
+.rf-dt
+{
+    border-collapse: collapse;
+    border: 1px solid #dfe4f2 !important;
+   	width: 100%;
+}
+
+.rf-dt td, .rf-dt th
+{
+    border: 1px solid #dfe4f2 !important;
+}
+
+.rf-dt img
+{
+		padding-right: 0.25em; 
+		padding-left: 0.25em;
+}
+
+td
+{
+	vertical-align: middle;
+}
+
+/*
+ * Definitions for the rich calendar.
+ */
+.rf-cal-extr
+{
+	background-color:	white;
+}
+
+
+/*
+ * Definitions for the header.
+ */
+
+#header
+{
+	height:			24px;
+	line-height:	24px;
+
+	margin-top:		2px;
+	margin-bottom:	2px;
+
+	border:			0px;
+	width:			100%;
+}
+
+#header-container
+{
+	float: right;
+}
+
+#header-container
+{
+	float: right;
+}
+
+.header-button
+{
+	border:			0px;
+	
+	display:		table-cell;
+
+	padding-left: 	16px;
+	padding-right:	16px;
+
+	text-align:		center;
+
+	vertical-align: middle;
+}
+
+#header a, #header a:visited
+{
+	color: inherit;
+}
+
+/*
+ * Definitions for the content area.
+ */
+#content
+{
+	max-width: 960px;
+	/*margin: 4px;*/
+	margin-left: auto;
+	margin-right: auto;
+	padding: 8px;
+	
+	background-color: white;
+
+	box-shadow: 0px 0px 14px rgba(0,0,0,.2);
+}
+
+#banner
+{
+	background-image:	url(#{resource['skala:images/banner/banner.png']});
+	margin-bottom:		4px;
+	height:				110px
+}
+
+#ude-logo
+{
+  float:		right;
+  margin-top:	12px;
+  clear: none;
+}
+
+#skala-logo
+{
+  float:		left;
+  margin-top:	20px;
+  margin-left:  20px;
+  clear:		none;
+}
+
+/*
+ * Definitions for the footer.
+ */
+
+#footer
+{
+	font-size: 			smaller;
+	text-align: 		center;
+	margin-bottom:		1em;
+	margin-top:			.5em;
+}
+
+/*
+ * Special rules for printing
+ */
+@media print
+{
+	#header, #footer
+	{
+		display: none;
+	}
+
+	.screen-only
+	{
+		display: none;
+	}
+}
+
