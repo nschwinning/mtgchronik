@@ -34,6 +34,17 @@ public class SeasonService {
 		}
 	}
 	
+	public Season getSeasonByStartYear(int year){
+		TypedQuery<Season> q = em.createQuery("FROM Season where startyear=:year", Season.class);
+		q.setParameter("year", year);
+		try{
+			return q.getSingleResult();
+		}
+		catch (NoResultException nre){
+			return null;
+		}
+	}
+	
 	public List<Season> getAllSeasons(){
 		Query q = em.createQuery("FROM Season ORDER BY startYear");
 		List<Season> seasonList = q.getResultList();

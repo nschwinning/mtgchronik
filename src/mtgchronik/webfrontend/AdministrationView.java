@@ -1,13 +1,22 @@
 package mtgchronik.webfrontend;
 
+import java.util.HashMap;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+
+import org.primefaces.event.NodeSelectEvent;
+import org.primefaces.model.DefaultTreeNode;
+import org.primefaces.model.TreeNode;
 
 import mtgchronik.entities.Season;
 import mtgchronik.entities.Team;
+import mtgchronik.entities.TeamInstance;
 import mtgchronik.services.SeasonService;
 import mtgchronik.services.TeamService;
 
@@ -22,18 +31,51 @@ public class AdministrationView {
 	private TeamService teamService;
 
 	private int startYear;
-	private int startYearSequence;
-	private int endYearSequence;
+	private String teamName;
+	private TreeNode seasonRoot;
+	private TreeNode selectedNode;
+	private HashMap<Integer,TreeNode> seasonMap;
 
+	 @PostConstruct
+	 public void init() {
+		 loadSeasonTree();
+	 }
+	 
+	 public void loadSeasonTree(){
+		 seasonRoot = new DefaultTreeNode("Root", null);
+		 List<Season> seasonList = seasonService.getAllSeasons();
+		 List<TeamInstance> teamInstanceList = teamService.getAllTeamInstances();
+		 seasonMap = new HashMap<Integer,TreeNode>();
+		 for (Season s:seasonList){
+			 TreeNode tempNode = new DefaultTreeNode("season", s, seasonRoot);
+			 seasonMap.put(s.getStartYear(), tempNode);
+		 }
+		 for (TeamInstance ti:teamInstanceList){
+			 if (seasonMap.containsKey(ti.getSeason().getStartYear())){
+				 TreeNode tempNode = new DefaultTreeNode("teamInstance",ti,seasonMap.get(ti.getSeason()));
+				 seasonMap.get(ti.getSeason().getStartYear()).getChildren().add(tempNode);
+			 }
+			 else{
+				 System.out.println("Season was not found for TeamInstance. Season is " + ti.getSeason().getRepresentation());
+			 }
+		 }
+	 }
+	 
+	 public void onNodeSelect(NodeSelectEvent event){
+		 if (selectedNode!=null){
+			 selectedNode.setSelected(false);
+		 }
+		 selectedNode = event.getTreeNode();
+		 selectedNode.setExpanded(!selectedNode.isExpanded());
+	 }
+	
+	
 	public void createSeason() {
-		seasonService.createSeason(startYear);
-	}
-
-	public void createSeasonSequence() {
-		if (startYearSequence<endYearSequence){
-			for (int i=startYearSequence; i<endYearSequence; i++){
-				seasonService.createSeason(i);
-			}
+		if (seasonService.getSeasonByStartYear(startYear)==null){
+			seasonService.createSeason(startYear);
+		}
+		else{
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fehler!", "Saison existiert bereits."));
 		}
 	}
 
@@ -47,22 +89,6 @@ public class AdministrationView {
 
 	public void setStartYear(int startYear) {
 		this.startYear = startYear;
-	}
-	
-	public int getStartYearSequence() {
-		return startYearSequence;
-	}
-
-	public void setStartYearSequence(int startYearSequence) {
-		this.startYearSequence = startYearSequence;
-	}
-
-	public int getEndYearSequence() {
-		return endYearSequence;
-	}
-
-	public void setEndYearSequence(int endYear) {
-		this.endYearSequence = endYear;
 	}
 	
 	public String toSeasonDetails(Season season){
@@ -81,5 +107,41 @@ public class AdministrationView {
 		teamService.createTeam("5. Mannschaft");
 		teamService.createTeam("6. Mannschaft");
 		teamService.createTeam("7. Mannschaft");
+	}
+
+	public String getTeamName() {
+		return teamName;
+	}
+
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
+	}
+	
+	public void createTeam(){
+		if (teamName!=null&&!teamName.trim().isEmpty()&&teamService.getTeamByName(teamName)==null){
+			teamService.createTeam(teamName.trim());
+			teamName="";
+		}
+		else{
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fehler!", "Mannschaft existiert bereits."));
+		}
+	}
+
+
+	public TreeNode getSeasonRoot() {
+		return seasonRoot;
+	}
+
+
+	public void setSeasonRoot(TreeNode seasonRoot) {
+		this.seasonRoot = seasonRoot;
+	}
+
+	public TreeNode getSelectedNode() {
+		return selectedNode;
+	}
+
+	public void setSelectedNode(TreeNode selectedNode) {
+		this.selectedNode = selectedNode;
 	}
 }
