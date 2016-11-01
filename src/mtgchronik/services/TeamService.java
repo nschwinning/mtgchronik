@@ -65,9 +65,10 @@ public class TeamService {
 	}
 	
 	public List<Team> getAllTeamsWithNoTeamInstanceForSeason(Season season){
-		Query q = em.createQuery("FROM Team t WHERE t.id not in (FROM TeamInstance WHERE season=:season)");
+		Query q = em.createQuery("FROM Team t WHERE t not in (SELECT ti.team FROM TeamInstance ti WHERE season=:season)");
 		q.setParameter("season", season);
 		List<Team> teamList = q.getResultList();
+		System.out.println("Team list has size " + teamList.size());
 		return teamList;
 	}
 	

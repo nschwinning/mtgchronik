@@ -1,5 +1,6 @@
 package mtgchronik.webfrontend;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -35,10 +36,14 @@ public class AdministrationView {
 	private TreeNode seasonRoot;
 	private TreeNode selectedNode;
 	private HashMap<Integer,TreeNode> seasonMap;
+	private String newTeam;
+	private List<String> availableTeams;
+	private List<Team> allTeams;
 
 	 @PostConstruct
 	 public void init() {
 		 loadSeasonTree();
+		 allTeams=teamService.getAllTeams();
 	 }
 	 
 	 public void loadSeasonTree(){
@@ -143,5 +148,38 @@ public class AdministrationView {
 
 	public void setSelectedNode(TreeNode selectedNode) {
 		this.selectedNode = selectedNode;
+	}
+
+	public String getNewTeam() {
+		return newTeam;
+	}
+
+	public void setNewTeam(String newTeam) {
+		this.newTeam = newTeam;
+	}
+
+	public List<String> getAvailableTeams() {
+		availableTeams=new ArrayList<String>();
+		for (Team t:allTeams){
+			availableTeams.add(t.getName());
+		}
+		return availableTeams;
+	}
+
+	public void setAvailableTeams(List<String> availableTeams) {
+		this.availableTeams = availableTeams;
+	}
+	
+	public void createTeamInstance(){
+		if (selectedNode!=null){
+			Season tempSeason = (Season)selectedNode.getData();
+			if (teamService.getTeamInstanceByTeamNameAndSeason(newTeam, tempSeason)==null){
+				teamService.createTeamInstance(teamService.getTeamByName(newTeam), tempSeason);
+				loadSeasonTree();
+			}
+			else {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fehler!", "Team existiert bereits."));
+			}
+		}
 	}
 }
