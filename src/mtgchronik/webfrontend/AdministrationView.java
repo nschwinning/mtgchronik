@@ -1,5 +1,6 @@
 package mtgchronik.webfrontend;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +24,12 @@ import mtgchronik.services.TeamService;
 
 @ManagedBean
 @ViewScoped
-public class AdministrationView {
+public class AdministrationView implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8937638621009660885L;
 
 	@Inject
 	private SeasonService seasonService;

@@ -55,6 +55,17 @@ public class PlayerService {
 		}
 	}
 	
+	public Player getPlayerByID(long id){
+		TypedQuery<Player> q = em.createQuery("FROM Player WHERE id=:id", Player.class);
+		q.setParameter("id", id);
+		try{
+			return q.getSingleResult();
+		}
+		catch (NoResultException e){
+			return null;
+		}
+	}
+	
 	public List<PlayerInstance> getPlayerInstancesForLineUp(LineUp lineUp){
 		TypedQuery<PlayerInstance> q = em.createQuery("FROM PlayerInstance WHERE lineUp=:lineUp", PlayerInstance.class);
 		q.setParameter("lineUp", lineUp);

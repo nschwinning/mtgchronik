@@ -1,5 +1,6 @@
 package mtgchronik.webfrontend;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -10,8 +11,12 @@ import mtgchronik.entities.Player;
 import mtgchronik.services.PlayerService;
 
 @Dependent
-public class AdministrationPlayersView {
+public class AdministrationPlayersView implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3101512008168135725L;
 	private List<Player> players;
 	private Player selectedPlayer;
 	private String newPlayerFirstName;

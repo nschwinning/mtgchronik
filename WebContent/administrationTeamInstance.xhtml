@@ -10,7 +10,7 @@
 	</f:metadata>
 	
 	<ui:define name="content">
-		<h:form>
+		<h:form id="teamInstanceForm">
 			<h2>#{administrationTeamInstanceView.welcomeString}</h2>
 			
 			<p:layout id="mainLayout" style="min-width:400px;min-height:600px;">
@@ -18,13 +18,30 @@
 				 <h3>Aufstellung</h3>
 					<h:commandButton action="#{administrationTeamInstanceView.createLineUp()}" value="Aufstellung anlegen" rendered="#{administrationTeamInstanceView.lineUp==null}" update="mainLayout" />
 				
-					<p:dataTable var="lineUpPlayer" widgetVar="playerTable" value="#{administrationTeamInstanceView.lineUpPlayers}" rendered="#{administrationTeamInstanceView.lineUp!=null}" >
+					<p:dataTable id="lineUp" var="lineUpPlayer" widgetVar="playerTable" value="#{administrationTeamInstanceView.lineUpPlayers}" 
+						editable="true" rendered="#{administrationTeamInstanceView.lineUp!=null}" >
+						
+						<p:ajax event="rowEdit" listener="#{administrationTeamInstanceView.onRowEdit}" update="lineUp" />
+       					<p:ajax event="rowEditCancel" listener="#{administrationTeamInstanceView.onEditCancel}" />
+						
 						<p:column headerText="Position">
 							<h:outputText value="#{lineUpPlayer.position}" />
 						</p:column>
 						<p:column headerText="Name">
-							 <h:outputText value="#{lineUpPlayer.playerName}" />
+							<p:cellEditor>
+								 <f:facet name="output">
+							 		<h:outputText value="#{lineUpPlayer.player}" />
+							 	</f:facet>
+							 	<f:facet name="input">
+							 		<h:selectOneMenu value="#{administrationTeamInstanceView.testPlayer}" converter="#{playerConverter}" style="width:100%">
+                       					<f:selectItems value="#{administrationTeamInstanceView.players}" var="man" itemLabel="#{man.fullName}" itemValue="#{man}" />
+                   					</h:selectOneMenu>
+							 	</f:facet>	
+							 </p:cellEditor>	
 						</p:column>
+						<p:column style="width:32px">
+           					<p:rowEditor />
+       					</p:column>
 					</p:dataTable>
 				</p:layoutUnit>	
 				

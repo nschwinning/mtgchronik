@@ -1,12 +1,14 @@
 package mtgchronik.webfrontend;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
+
+import org.primefaces.event.RowEditEvent;
 
 import mtgchronik.entities.LineUp;
 import mtgchronik.entities.Player;
@@ -17,7 +19,12 @@ import mtgchronik.services.TeamService;
 
 @ManagedBean
 @ViewScoped
-public class AdministrationTeamInstanceView {
+public class AdministrationTeamInstanceView implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8868226826302702982L;
 
 	@Inject
 	private TeamService teamService;
@@ -30,6 +37,7 @@ public class AdministrationTeamInstanceView {
 	private LineUp lineUp;
 	private List<PlayerInstance> lineUpPlayers;
 	private List<Player> players;
+	private Player testPlayer;
 	
 	public void loadTeamInstance(){
 		this.teamInstance=teamService.getTeamInstanceByID(teamInstanceId);
@@ -40,7 +48,7 @@ public class AdministrationTeamInstanceView {
 		else {
 			lineUpPlayers = new ArrayList<PlayerInstance>();
 		}
-		players = playerService.getAllPlayers();
+		setPlayers(playerService.getAllPlayers());
 	}
 
 	public long getTeamInstanceId() {
@@ -74,6 +82,30 @@ public class AdministrationTeamInstanceView {
 	
 	public List<PlayerInstance> getLineUpPlayers(){
 		return lineUpPlayers;
+	}
+	
+	public void onRowEdit(RowEditEvent event){
+		System.out.println(event.getSource().getClass());
+	}
+	
+	public void onRowCancel(){
+		
+	}
+
+	public List<Player> getPlayers() {
+		return players;
+	}
+
+	public void setPlayers(List<Player> players) {
+		this.players = players;
+	}
+
+	public Player getTestPlayer() {
+		return testPlayer;
+	}
+
+	public void setTestPlayer(Player testPlayer) {
+		this.testPlayer = testPlayer;
 	}
 	
 }
