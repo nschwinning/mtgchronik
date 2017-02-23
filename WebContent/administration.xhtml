@@ -24,36 +24,41 @@
 								onclick="PF('dlg1').close();" />
 						</h:panelGrid>
 					</p:dialog>
-					
+
 					<p:dialog id="dlg3" header="Mannschaft hinzufügen" widgetVar="dlg3"
 						minHeight="40">
 						<h:panelGrid columns="2">
 							<h:outputText value="Mannschaft" />
-							<p:selectOneMenu id="newTeam" value="#{administrationView.newTeam}">
-            					<f:selectItem itemLabel="Select One" itemValue="" />
-            					<f:selectItems value="#{administrationView.availableTeams}" />
-        					</p:selectOneMenu>
-							<p:commandButton action="#{administrationView.createTeamInstance()}"
+							<p:selectOneMenu id="newTeam"
+								value="#{administrationView.newTeam}">
+								<f:selectItem itemLabel="Select One" itemValue="" />
+								<f:selectItems value="#{administrationView.availableTeams}" />
+							</p:selectOneMenu>
+							<p:commandButton
+								action="#{administrationView.createTeamInstance()}"
 								value="Erzeugen" update="allSeasons"
 								onclick="PF('dlg3').close();" />
 						</h:panelGrid>
 					</p:dialog>
 
 					<p:tree id="allSeasons" value="#{administrationView.seasonRoot}"
-						var="doc" selectionMode="single" selection="#{administrationView.selectedNode}" >
+						var="doc" selectionMode="single"
+						selection="#{administrationView.selectedNode}">
 						<p:treeNode type="season" icon="ui-icon-document">
 							<h:outputText value="#{doc.representation}" />
 						</p:treeNode>
 
 						<p:treeNode type="teamInstance" icon="ui-icon-image">
-							<p:link outcome="/administrationTeamInstance.xhtml" value="#{doc.team.name}">
-    							<f:param name="teamInstanceId" value="#{doc.id}" />
+							<p:link outcome="/administrationTeamInstance.xhtml"
+								value="#{doc.team.name}">
+								<f:param name="teamInstanceId" value="#{doc.id}" />
 							</p:link>
 						</p:treeNode>
-						
-        				<p:ajax event="select" update="allSeasons" listener="#{administrationView.onNodeSelect}" />
+
+						<p:ajax event="select" update="allSeasons"
+							listener="#{administrationView.onNodeSelect}" />
 					</p:tree>
-					
+
 					<p:contextMenu for="allSeasons" nodeType="season">
 						<p:menuitem value="Mannschaft hinzufügen" update="allSeasons"
 							onclick="PF('dlg3').show();" icon="ui-icon-search" />
@@ -87,7 +92,7 @@
 					</p:dataTable>
 				</p:tab>
 				<p:tab id="players" title="Spieler">
-
+					<ui:include page="administrationPlayers.xhtml" />
 				</p:tab>
 			</p:tabView>
 		</h:form>

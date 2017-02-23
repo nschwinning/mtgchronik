@@ -20,8 +20,8 @@ public class PlayerInstance {
 	private Season season;
 	
 	@ManyToOne
-	private TeamInstance teamInstance;
-	
+	private LineUp lineUp;
+
 	@Column
 	private int position;
 
@@ -41,14 +41,6 @@ public class PlayerInstance {
 		this.season = season;
 	}
 
-	public TeamInstance getTeamInstance() {
-		return teamInstance;
-	}
-
-	public void setTeamInstance(TeamInstance teamInstance) {
-		this.teamInstance = teamInstance;
-	}
-
 	public long getId() {
 		return id;
 	}
@@ -61,6 +53,12 @@ public class PlayerInstance {
 		this.position = position;
 	}
 	
-	
+	public LineUp getLineUp() {
+		return lineUp;
+	}
+
+	public void setLineUp(LineUp lineUp) {
+		this.lineUp = lineUp;
+	}
 	
 }
