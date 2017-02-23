@@ -4,20 +4,70 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-	<p:growl id="tenentUserManagementMessages" showDetail="true" />
-
-	<p:growl id="tenentUserManagementMessages" showDetail="true" />
+	<p:growl id="administrationPlayerMessages" showDetail="true" />
 
 	<h:panelGroup id="mainLayout">
-			<h:panelGroup id="playerListContainer" style="vertical-align:top;padding:0px;">
+			<h:panelGroup id="playerListContainer" style="vertical-align:top;padding:0px;" rendered="#{not administrationView.administrationPlayersView.showDetails}">
+			
+				<p:commandButton value="Neuen Spieler anlegen" 
+					oncomplete="PF('createPlayerDialog').show(); return false;" style="margin:10px;"/>
 			
 				<h2>Spielerliste</h2>
-				<p:dataTable var="player">
+				<p:dataTable var="player" widgetVar="playerTable" value="#{administrationView.administrationPlayersView.players}" 
+				selectionMode="single" selection="#{administrationView.administrationPlayersView.selectedPlayer}"
+					rowKey="#{player.id}" editable="true" editMode="cell">
+					<p:ajax event="rowSelect"
+						update=":administration:tabs:mainLayout" />
+					
+					<p:column headerText="Name" sortBy="#{player.fullName}">
+						<h:outputText value="#{player.fullName}" />
+					</p:column>
 				
 				</p:dataTable>
 				
+				<p:dialog id="createPlayerDialog"
+					header="Neuen Spieler anlegen" widgetVar="createPlayerDialog"
+					minHeight="40">
+					<p:panelGrid columns="2">
+						<p:outputLabel for="newFirstName" value="Vorname:" />
+						<p:inputText id="newFirstName" size="30"
+							value="#{administrationView.administrationPlayersView.newPlayerFirstName}" />
+						<p:outputLabel for="newLastName" value="Nachname:" />
+						<p:inputText id="newLastName" size="30"
+							value="#{administrationView.administrationPlayersView.newPlayerLastName}" />	
+					</p:panelGrid>
+					
+					<p:commandButton
+						action="#{administrationView.administrationPlayersView.createPlayer}"
+						value="OK" update=":administration:tabs:mainLayout"
+						onclick="PF('createPlayerDialog').close();" />
+					<p:commandButton value="Abbrechen"
+						onclick="PF('createPlayerDialog').close();" />
+				</p:dialog>
+				
 			</h:panelGroup>
 			
+			<h:panelGroup id="playerDetailsContainer"
+				rendered="#{administrationView.administrationPlayersView.showDetails and administrationView.administrationPlayersView.selectedPlayer!=null}"
+				style="vertical-align:top;padding:0px;">
+				<p:toolbar>
+					<f:facet name="right">
+						<p:commandButton title="#{msg['global.close']}" icon="ui-icon-closethick" 
+							actionListener="#{administrationView.administrationPlayersView.closeSelectedPlayer()}"
+							update=":administration:tabs:mainLayout" />
+					</f:facet>
+				</p:toolbar>
+				
+				<p:panelGrid columns="2" style="width:100%">
+					<p:outputLabel for="selectedFirstName" value="Vorname:" />
+					<p:inputText id="selectedFirstName" size="30"
+							value="#{administrationView.administrationPlayersView.selectedPlayer.firstName}" />
+					<p:outputLabel for="selectedLastName" value="Nachname:" />
+					<p:inputText id="selectedLastName" size="30"
+							value="#{administrationView.administrationPlayersView.selectedPlayer.lastName}" />
+				</p:panelGrid>
+				
+			</h:panelGroup>	
 			
 	</h:panelGroup>		
 	
