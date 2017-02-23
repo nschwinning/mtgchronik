@@ -9,21 +9,23 @@
 	<h:panelGroup id="mainLayout">
 			<h:panelGroup id="playerListContainer" style="vertical-align:top;padding:0px;" rendered="#{not administrationView.administrationPlayersView.showDetails}">
 			
-				<p:commandButton value="Neuen Spieler anlegen" 
-					oncomplete="PF('createPlayerDialog').show(); return false;" style="margin:10px;"/>
-			
 				<h2>Spielerliste</h2>
 				<p:dataTable var="player" widgetVar="playerTable" value="#{administrationView.administrationPlayersView.players}" 
 				selectionMode="single" selection="#{administrationView.administrationPlayersView.selectedPlayer}"
 					rowKey="#{player.id}" editable="true" editMode="cell">
 					<p:ajax event="rowSelect"
 						update=":administration:tabs:mainLayout" />
+					<p:ajax event="rowUnselect"
+						update=":administration:tabs:mainLayout" />							
 					
 					<p:column headerText="Name" sortBy="#{player.fullName}">
 						<h:outputText value="#{player.fullName}" />
 					</p:column>
 				
 				</p:dataTable>
+				
+				<p:commandButton value="Neuen Spieler anlegen" 
+					oncomplete="PF('createPlayerDialog').show(); return false;" style="margin:10px;"/>
 				
 				<p:dialog id="createPlayerDialog"
 					header="Neuen Spieler anlegen" widgetVar="createPlayerDialog"
@@ -38,7 +40,7 @@
 					</p:panelGrid>
 					
 					<p:commandButton
-						action="#{administrationView.administrationPlayersView.createPlayer}"
+						action="#{administrationView.administrationPlayersView.createPlayer()}"
 						value="OK" update=":administration:tabs:mainLayout"
 						onclick="PF('createPlayerDialog').close();" />
 					<p:commandButton value="Abbrechen"

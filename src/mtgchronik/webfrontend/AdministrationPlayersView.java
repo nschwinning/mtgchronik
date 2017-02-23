@@ -16,7 +16,6 @@ public class AdministrationPlayersView {
 	private Player selectedPlayer;
 	private String newPlayerFirstName;
 	private String newPlayerLastName;
-	private boolean showDetails;
 	
 	@Inject
 	private PlayerService playerService;
@@ -24,7 +23,6 @@ public class AdministrationPlayersView {
 	@PostConstruct
 	private void loadView(){
 		refreshPlayers();
-		showDetails=false;
 	}
 	
 	private void refreshPlayers(){
@@ -45,7 +43,6 @@ public class AdministrationPlayersView {
 
 	public void setSelectedPlayer(Player selectedPlayer) {
 		this.selectedPlayer = selectedPlayer;
-		showDetails=true;
 	}
 
 	public String getNewPlayerFirstName() {
@@ -67,6 +64,7 @@ public class AdministrationPlayersView {
 	public void createPlayer(){
 		if (playerService.getPlayerByName(newPlayerFirstName, newPlayerLastName)==null){
 			if (!newPlayerFirstName.trim().isEmpty()&&!newPlayerLastName.trim().isEmpty()){
+				
 				playerService.createPlayer(newPlayerFirstName, newPlayerLastName);
 				refreshPlayers();
 				newPlayerFirstName="";
@@ -76,14 +74,10 @@ public class AdministrationPlayersView {
 	}
 
 	public boolean isShowDetails() {
-		return showDetails;
-	}
-
-	public void setShowDetails(boolean showDetails) {
-		this.showDetails = showDetails;
+		return selectedPlayer!=null;
 	}
 	
 	public void closeSelectedPlayer(){
-		showDetails=false;
+		selectedPlayer=null;
 	}
 }
