@@ -16,7 +16,16 @@
 			<p:layout id="mainLayout" style="min-width:400px;min-height:600px;">
 				 <p:layoutUnit id="west" position="west" resizable="true" size="400" minSize="400" maxSize="400">
 				 <h3>Aufstellung</h3>
-					<h:commandButton action="#{administrationTeamInstanceView.createLineUp()}" value="Aufstellung anlegen" rendered="#{administrationTeamInstanceView.lineUp==null}" />
+					<h:commandButton action="#{administrationTeamInstanceView.createLineUp()}" value="Aufstellung anlegen" rendered="#{administrationTeamInstanceView.lineUp==null}" update="mainLayout" />
+				
+					<p:dataTable var="lineUpPlayer" widgetVar="playerTable" value="#{administrationTeamInstanceView.lineUpPlayers}" rendered="#{administrationTeamInstanceView.lineUp!=null}" >
+						<p:column headerText="Position">
+							<h:outputText value="#{lineUpPlayer.position}" />
+						</p:column>
+						<p:column headerText="Name">
+							 <h:outputText value="#{lineUpPlayer.playerName}" />
+						</p:column>
+					</p:dataTable>
 				</p:layoutUnit>	
 				
 				<p:layoutUnit id="center" position="center">
