@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -37,6 +38,20 @@ public class TeamService {
 		return teamList;
 	}
 	
+	public Team getTeamByName(String name){
+		TypedQuery<Team> q = em.createQuery("FROM Team WHERE name=:name",Team.class);
+		q.setParameter("name", name);
+		try{
+			return q.getSingleResult();
+		}
+		catch (NoResultException nre){
+			return null;
+		}
+		catch (NonUniqueResultException nure){
+			return null;
+		}
+	}
+	
 	public List<TeamInstance> getAllTeamInstancesBySeason(Season season){
 		TypedQuery<TeamInstance> q = em.createQuery("FROM TeamInstance WHERE season=:season",TeamInstance.class);
 		q.setParameter("season", season);
@@ -50,9 +65,10 @@ public class TeamService {
 	}
 	
 	public List<Team> getAllTeamsWithNoTeamInstanceForSeason(Season season){
-		Query q = em.createQuery("FROM Team t WHERE t.id not in (FROM TeamInstance WHERE season=:season)");
+		Query q = em.createQuery("FROM Team t WHERE t not in (SELECT ti.team FROM TeamInstance ti WHERE season=:season)");
 		q.setParameter("season", season);
 		List<Team> teamList = q.getResultList();
+		System.out.println("Team list has size " + teamList.size());
 		return teamList;
 	}
 	
@@ -70,8 +86,39 @@ public class TeamService {
 		return null;
 	}
 	
+	public TeamInstance getTeamInstanceByTeamNameAndSeason(String name, Season season){
+		TypedQuery<TeamInstance> q = em.createQuery("FROM TeamInstance ti LEFT JOIN FETCH ti.team as t WHERE t.name=:name AND ti.season=:season",TeamInstance.class);
+		q.setParameter("season", season);
+		q.setParameter("name", name);
+		try{
+			return q.getSingleResult();
+		}
+		catch (NoResultException e){
+			return null;
+		}
+		catch (NonUniqueResultException nure){
+			System.out.println("No single result");
+			return null;
+		}
+	}
+	
+	public TeamInstance getTeamInstanceByID(long id){
+		TypedQuery<TeamInstance> q = em.createQuery("FROM TeamInstance WHERE id=:id",TeamInstance.class);
+		q.setParameter("id", id);
+		return q.getSingleResult();
+	}
+	
 	public void removeTeamInstance(TeamInstance teamInstance){
-		em.remove(teamInstance);
+		em.remove(em.contains(teamInstance) ? teamInstance : em.merge(teamInstance));
+	}
+	
+	public void updateTeamInstance(TeamInstance teamInstance){
+		em.merge(teamInstance);
+	}
+	
+	public List<String> getAllLeagueNames(){
+		TypedQuery<String> q = em.createQuery("SELECT DISTINCT ti.league FROM TeamInstance ti",String.class);
+		return q.getResultList();
 	}
 	
 }

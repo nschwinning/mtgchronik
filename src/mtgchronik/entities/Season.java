@@ -14,7 +14,7 @@ public class Season implements Serializable{
     @GeneratedValue
     protected long id;
 	
-	@Column
+	@Column(unique=true)
 	private int startYear;
 	
 	@Column

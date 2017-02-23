@@ -14,41 +14,25 @@
 	<ui:define name="content">
 		<h:form>
 			<h2>Saison #{seasonDetailsView.season.representation}</h2>
-			<p:fieldset id="availableTeams" legend="Verfügbare Mannschaften">
-				<p:dataList id="allTeams"
-					value="#{seasonDetailsView.teams}" var="item">
-					<h:column>
-						<h:outputText id="teamName" value="#{item.name}" />
-						<p:draggable for="teamName" revert="true" helper="clone" />
-					</h:column>
-				</p:dataList>
-			</p:fieldset>
-
-			<p:fieldset id="selectedTeams" legend="Mannschaften"
-				style="margin-top:20px">
-				<p:outputPanel id="dropArea">
-					<p:dataList id="allTeamInstances"
-						value="#{seasonDetailsView.teamInstancesForSeason}" var="item">
-						<h:column>
-							<p:link outcome="/teamInstanceDetails.xhtml"
-								value="#{item.team.name}">
-								<f:param id="id" name="id" value="#{item.id}" />
-							</p:link>
-						</h:column>
-					</p:dataList>
-				</p:outputPanel>
-			</p:fieldset>
-
-			<p:droppable for="selectedTeams" tolerance="touch"
-				activeStyleClass="ui-state-highlight" datasource="availableTeams"
-				onDrop="handleDrop">
-				<p:ajax listener="#{seasonDetailsView.onTeamDrop}"
-					update="dropArea availableTeams" />
-			</p:droppable>
-
-			<p:commandButton id="save" value="Speichern"
-				action="#{seasonDetailsView.updateTeamInstances()}"
-				style="margin-top:5px" update="allTeamInstances" />
+			<h3 style="margin-top: 0">Mannschaften</h3>
+    		<p:pickList id="pickList" value="#{seasonDetailsView.teamNames}" var="teamName" itemLabel="#{teamName}" itemValue="#{teamName}" >
+    			<f:facet name="sourceCaption">Verfügbar</f:facet>
+        		<f:facet name="targetCaption">Im Spielbetrieb</f:facet>
+        		
+        		<p:ajax event="transfer" listener="#{seasonDetailsView.handleTransfer}" update="teamInstances" />
+        		<p:ajax event="select" listener="#{seasonDetailsView.handleSelect}"  />
+        	</p:pickList>	
+				
+			<p:accordionPanel id="teamInstances" value="#{seasonDetailsView.teamInstancesForSeason}" var="team">
+				<p:tab title="#{team.team.name}">
+					<h:panelGrid columns="2" cellpadding="5">
+						<h:outputText value="Liga:" style="font-weight: bold" />
+                		<p:autoComplete id="league" value="#{team.league}" completeMethod="#{seasonDetailsView.completeLeagueName}" />
+					</h:panelGrid>
+				</p:tab>
+			</p:accordionPanel>
+			
+			<p:commandButton value="Speichern" id="save" actionListener="#{seasonDetailsView.updateTeamInstances}" ajax="false" />
 		</h:form>
 	</ui:define>
 </ui:composition>
