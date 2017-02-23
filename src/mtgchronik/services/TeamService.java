@@ -102,6 +102,12 @@ public class TeamService {
 		}
 	}
 	
+	public TeamInstance getTeamInstanceByID(long id){
+		TypedQuery<TeamInstance> q = em.createQuery("FROM TeamInstance WHERE id=:id",TeamInstance.class);
+		q.setParameter("id", id);
+		return q.getSingleResult();
+	}
+	
 	public void removeTeamInstance(TeamInstance teamInstance){
 		em.remove(em.contains(teamInstance) ? teamInstance : em.merge(teamInstance));
 	}

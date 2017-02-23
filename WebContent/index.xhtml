@@ -6,7 +6,37 @@
 	template="/templates/template.xhtml">
 	<ui:define name="content">
 		<h:form>
-			<h:outputText value="MTG Chronik" />
+			<p:tabView scrollable="true">
+				<p:tab id="seasons" title="Saisons">
+
+					<p:tree id="allSeasons" value="#{indexView.seasonRoot}"
+						var="doc" selectionMode="single" selection="#{indexView.selectedNode}" >
+						<p:treeNode type="season" icon="ui-icon-document">
+							<h:outputText value="#{doc.representation}" />
+						</p:treeNode>
+
+						<p:treeNode type="teamInstance" icon="ui-icon-image">
+							<p:link outcome="/teamInstanceDetails.xhtml" value="#{doc.team.name}">
+    							<f:param name="teamInstanceId" value="#{doc.id}" />
+							</p:link>
+						</p:treeNode>
+						
+        				<p:ajax event="select" update="allSeasons" listener="#{indexView.onNodeSelect}" />
+					</p:tree>
+					
+				</p:tab>
+				<p:tab id="teams" title="Mannschaften">
+					<p:dataTable id="allTeams" value="#{indexView.teams}"
+						var="team">
+						<p:column headerText="Name">
+							<h:outputText value="#{team.name}" />
+						</p:column>
+					</p:dataTable>
+				</p:tab>
+				<p:tab id="players" title="Spieler">
+
+				</p:tab>
+			</p:tabView>
 	    </h:form>
 	</ui:define>
 </ui:composition>

@@ -9,6 +9,7 @@
 		<class>mtgchronik.entities.TeamInstance</class>
 		<class>mtgchronik.entities.Player</class>
 		<class>mtgchronik.entities.PlayerInstance</class>
+		<class>mtgchronik.entities.LineUp</class>
 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.show_sql" value="false" />

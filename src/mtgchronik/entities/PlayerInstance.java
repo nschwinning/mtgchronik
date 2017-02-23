@@ -1,5 +1,6 @@
 package mtgchronik.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -20,6 +21,9 @@ public class PlayerInstance {
 	
 	@ManyToOne
 	private TeamInstance teamInstance;
+	
+	@Column
+	private int position;
 
 	public Player getPlayer() {
 		return player;
@@ -47,6 +51,14 @@ public class PlayerInstance {
 
 	public long getId() {
 		return id;
+	}
+
+	public int getPosition() {
+		return position;
+	}
+
+	public void setPosition(int position) {
+		this.position = position;
 	}
 	
 	
