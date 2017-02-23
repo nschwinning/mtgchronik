@@ -30,6 +30,9 @@ public class AdministrationView {
 	
 	@Inject
 	private TeamService teamService;
+	
+	@Inject
+	private AdministrationPlayersView administrationPlayersView;
 
 	private int startYear;
 	private String teamName;
@@ -96,6 +99,14 @@ public class AdministrationView {
 		this.startYear = startYear;
 	}
 	
+	public AdministrationPlayersView getAdministrationPlayersView() {
+		return administrationPlayersView;
+	}
+
+	public void setAdministrationPlayersView(AdministrationPlayersView administrationPlayersView) {
+		this.administrationPlayersView = administrationPlayersView;
+	}
+
 	public String toSeasonDetails(Season season){
 		return "/seasonDetails.xhtml";
 	}

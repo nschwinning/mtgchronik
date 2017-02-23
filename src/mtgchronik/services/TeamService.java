@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import mtgchronik.entities.LineUp;
 import mtgchronik.entities.Season;
 import mtgchronik.entities.Team;
 import mtgchronik.entities.TeamInstance;
@@ -119,6 +120,23 @@ public class TeamService {
 	public List<String> getAllLeagueNames(){
 		TypedQuery<String> q = em.createQuery("SELECT DISTINCT ti.league FROM TeamInstance ti",String.class);
 		return q.getResultList();
+	}
+	
+	public LineUp getLineUpForTeamInstance(TeamInstance teamInstance){
+		TypedQuery<LineUp> q = em.createQuery("FROM LineUp WHERE teamInstance=:teamInstance", LineUp.class);
+		q.setParameter("teamInstance", teamInstance);
+		try{
+			return q.getSingleResult();
+		}
+		catch (NoResultException e){
+			return null;
+		}
+	}
+	
+	public LineUp createLineUp(TeamInstance teamInstance){
+		LineUp lineUp = new LineUp(teamInstance);
+		em.persist(lineUp);
+		return lineUp;
 	}
 	
 }

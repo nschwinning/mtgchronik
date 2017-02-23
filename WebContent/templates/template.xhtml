@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
 
 	<h:head>
   
@@ -75,6 +76,11 @@
           
           <!-- The actual page content. -->
           <div id="page-content" style="display: none;">
+          	<p:menubar>
+					<p:menuitem value="Home"
+						url="/index.xhtml"
+						icon="ui-icon-home" />
+				</p:menubar>
             <ui:insert name="content"/>
           </div>
   		</div>

@@ -21,6 +21,12 @@ public class Player {
 	@Column
 	private String firstName;
 
+	public Player(){}
+	
+	public Player(String firstName, String lastName){
+		this.firstName=firstName;
+		this.lastName=lastName;
+	}
 
 	public String getLastName() {
 		return lastName;
@@ -40,6 +46,10 @@ public class Player {
 
 	public long getId() {
 		return id;
+	}
+	
+	public String getFullName(){
+		return lastName + ", " + firstName;
 	}
 	
 	

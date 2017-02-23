@@ -12,6 +12,17 @@
 	<ui:define name="content">
 		<h:form>
 			<h2>#{administrationTeamInstanceView.welcomeString}</h2>
+			
+			<p:layout id="mainLayout" style="min-width:400px;min-height:600px;">
+				 <p:layoutUnit id="west" position="west" resizable="true" size="400" minSize="400" maxSize="400">
+				 <h3>Aufstellung</h3>
+					<h:commandButton action="#{administrationTeamInstanceView.createLineUp()}" value="Aufstellung anlegen" rendered="#{administrationTeamInstanceView.lineUp==null}" />
+				</p:layoutUnit>	
+				
+				<p:layoutUnit id="center" position="center">
+        			<h3>Tabelle</h3>
+    			</p:layoutUnit>
+    		</p:layout>	
 		</h:form>
 	</ui:define>
 </ui:composition>		
