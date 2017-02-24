@@ -17,13 +17,17 @@ public class PlayerInstance {
 	private Player player;
 	
 	@ManyToOne
-	private Season season;
-	
-	@ManyToOne
 	private LineUp lineUp;
 
 	@Column
 	private int position;
+	
+	public PlayerInstance(){}
+	
+	public PlayerInstance(LineUp lineUp,int position){
+		this.lineUp=lineUp;
+		this.position=position;
+	}
 
 	public Player getPlayer() {
 		return player;
@@ -31,14 +35,6 @@ public class PlayerInstance {
 
 	public void setPlayer(Player player) {
 		this.player = player;
-	}
-
-	public Season getSeason() {
-		return season;
-	}
-
-	public void setSeason(Season season) {
-		this.season = season;
 	}
 
 	public long getId() {
@@ -59,6 +55,12 @@ public class PlayerInstance {
 
 	public void setLineUp(LineUp lineUp) {
 		this.lineUp = lineUp;
+	}
+	
+	public String getPlayerName(){
+		if (player==null)
+			return "";
+		return player.getFirstName() + " " + player.getLastName();
 	}
 	
 }

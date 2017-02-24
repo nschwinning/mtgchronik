@@ -52,6 +52,11 @@ public class Player {
 		return lastName + ", " + firstName;
 	}
 	
-	
+	/*
+	@Override
+	public String toString(){
+		return getFullName();
+	}
+	*/
 	
 }
