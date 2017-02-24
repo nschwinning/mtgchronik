@@ -70,6 +70,63 @@
 				
 				<p:layoutUnit id="center" position="center">
         			<h3>Tabelle</h3>
+        			<h:commandButton action="#{administrationTeamInstanceView.createTable()}" value="Tabelle anlegen" rendered="#{administrationTeamInstanceView.ranking==null}" update="mainLayout" />
+    			
+    				<p:dataTable id="ranking" var="team" widgetVar="teamTable" value="#{administrationTeamInstanceView.tableDataList}" 
+						editable="true" rendered="#{administrationTeamInstanceView.ranking!=null}" >
+						<p:ajax event="rowEdit" listener="#{administrationTeamInstanceView.onTableRowEdit}" update="ranking" />
+       					<p:ajax event="rowEditCancel" listener="#{administrationTeamInstanceView.onTableRowCancel}" />
+						
+						<p:column style="width:15px">
+							<h:outputText value="#{team.position}" />
+						</p:column>
+						<p:column headerText="Mannschaft">
+							<p:cellEditor>
+								 <f:facet name="output">
+							 		<h:outputText value="#{team.teamName}" />
+							 	</f:facet>
+							 	<f:facet name="input">
+							 		<p:inputText value="#{team.teamName}" />
+							 	</f:facet>
+							</p:cellEditor>
+						</p:column>
+						<p:column headerText="G" style="width:20px">
+							<p:cellEditor>
+								 <f:facet name="output">
+							 		<h:outputText value="#{team.wins}" />
+							 	</f:facet>
+							 	<f:facet name="input">
+							 		<p:inputText value="#{team.wins}" />
+							 	</f:facet>
+							</p:cellEditor>
+						</p:column>
+						<p:column headerText="U" style="width:20px">
+							 <p:cellEditor>
+								 <f:facet name="output">
+							 		<h:outputText value="#{team.draws}" />
+							 	</f:facet>
+							 	<f:facet name="input">
+							 		<p:inputText value="#{team.draws}" />
+							 	</f:facet>
+							</p:cellEditor>
+						</p:column>
+						<p:column headerText="V" style="width:20px">
+							<p:cellEditor>
+								 <f:facet name="output">
+							 		<h:outputText value="#{team.losses}" />
+							 	</f:facet>
+							 	<f:facet name="input">
+							 		<p:inputText value="#{team.losses}" />
+							 	</f:facet>
+							</p:cellEditor>
+						</p:column>
+						<p:column style="width:30px">
+							<h:outputText value="#{team.points}" />
+						</p:column>		
+						<p:column style="width:32px">
+           					<p:rowEditor />
+       					</p:column>
+					</p:dataTable>	
     			</p:layoutUnit>
     		</p:layout>	
 		</h:form>

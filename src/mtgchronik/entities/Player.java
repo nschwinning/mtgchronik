@@ -9,11 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 @Entity
-public class Player {
-
-	@Id
-	@GeneratedValue
-	protected Long id;
+public class Player extends AbstractEntity{
 
 	@Column
 	private String lastName;
@@ -56,16 +52,5 @@ public class Player {
 	@Override
 	public String toString() {
 		return getFullName();
-	}
-
-	@Override
-	public boolean equals(Object other) {
-		return (other != null && getClass() == other.getClass() && id != null) ? id.equals(((Player) other).id)
-				: (other == this);
-	}
-
-	@Override
-	public int hashCode() {
-		return (id != null) ? (getClass().hashCode() + id.hashCode()) : super.hashCode();
 	}
 }

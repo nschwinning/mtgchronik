@@ -10,16 +10,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
-public class TeamInstance implements Serializable{
+public class TeamInstance extends AbstractEntity{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7881208864490116584L;
 
-	@Id
-    @GeneratedValue
-    protected long id;
 	
 	@ManyToOne
 	private Team team;

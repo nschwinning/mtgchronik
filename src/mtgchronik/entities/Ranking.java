@@ -1,23 +1,20 @@
 package mtgchronik.entities;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 @Entity
-public class LineUp extends AbstractEntity{
+public class Ranking extends AbstractEntity{
 	
 	@OneToOne
 	private TeamInstance teamInstance;
 	
-	public LineUp(){}
+	public Ranking(){}
 	
-	public LineUp(TeamInstance teamInstance){
+	public Ranking(TeamInstance teamInstance){
 		this.teamInstance=teamInstance;
 	}
-
+	
 }

@@ -7,11 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class PlayerInstance {
-
-	@Id
-    @GeneratedValue
-    protected long id;
+public class PlayerInstance extends AbstractEntity{
 	
 	@ManyToOne
 	private Player player;

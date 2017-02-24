@@ -12,6 +12,8 @@ import javax.persistence.TypedQuery;
 
 import mtgchronik.entities.LineUp;
 import mtgchronik.entities.Season;
+import mtgchronik.entities.Ranking;
+import mtgchronik.entities.TableData;
 import mtgchronik.entities.Team;
 import mtgchronik.entities.TeamInstance;
 
@@ -139,4 +141,37 @@ public class TeamService {
 		return lineUp;
 	}
 	
+	
+	public Ranking createRanking(TeamInstance teamInstance){
+		Ranking table = new Ranking(teamInstance);
+		em.persist(table);
+		return table;
+	}
+	
+	public TableData createTableData(Ranking table, int position){
+		TableData tableData = new TableData(table,position);
+		em.persist(tableData);
+		return tableData;
+	}
+	
+	public TableData updateTableData(TableData tableData){
+		return em.merge(tableData);
+	}
+	
+	public Ranking getRankingForTeamInstance(TeamInstance teamInstance){
+		TypedQuery<Ranking> q = em.createQuery("FROM Ranking WHERE teamInstance=:teamInstance", Ranking.class);
+		q.setParameter("teamInstance", teamInstance);
+		try{
+			return q.getSingleResult();
+		}
+		catch (NoResultException e){
+			return null;
+		}
+	}
+	
+	public List<TableData> getTableDataForRanking(Ranking table){
+		TypedQuery<TableData> q = em.createQuery("FROM TableData WHERE table=:table", TableData.class);
+		q.setParameter("table", table);
+		return q.getResultList();
+	}
 }
