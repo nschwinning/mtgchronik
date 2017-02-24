@@ -37,7 +37,6 @@ public class AdministrationTeamInstanceView implements Serializable {
 	private LineUp lineUp;
 	private List<PlayerInstance> lineUpPlayers;
 	private List<Player> players;
-	private Player testPlayer;
 	
 	public void loadTeamInstance(){
 		this.teamInstance=teamService.getTeamInstanceByID(teamInstanceId);
@@ -61,6 +60,8 @@ public class AdministrationTeamInstanceView implements Serializable {
 	}
 	
 	public String getWelcomeString(){
+		if (teamInstance==null)
+			return "";
 		return teamInstance.getTeam().getName() + ", Saison " + teamInstance.getSeason().getRepresentation();
 	}
 
@@ -98,14 +99,6 @@ public class AdministrationTeamInstanceView implements Serializable {
 
 	public void setPlayers(List<Player> players) {
 		this.players = players;
-	}
-
-	public Player getTestPlayer() {
-		return testPlayer;
-	}
-
-	public void setTestPlayer(Player testPlayer) {
-		this.testPlayer = testPlayer;
 	}
 	
 }
