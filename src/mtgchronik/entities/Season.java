@@ -8,11 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Season implements Serializable{
-
-	@Id
-    @GeneratedValue
-    protected long id;
+public class Season extends AbstractEntity{
 	
 	@Column(unique=true)
 	private int startYear;

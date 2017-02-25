@@ -9,23 +9,20 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 @Entity
-public class Player {
+public class Player extends AbstractEntity{
 
-	@Id
-    @GeneratedValue
-    protected long id;
-	
 	@Column
 	private String lastName;
-	
+
 	@Column
 	private String firstName;
 
-	public Player(){}
-	
-	public Player(String firstName, String lastName){
-		this.firstName=firstName;
-		this.lastName=lastName;
+	public Player() {
+	}
+
+	public Player(String firstName, String lastName) {
+		this.firstName = firstName;
+		this.lastName = lastName;
 	}
 
 	public String getLastName() {
@@ -47,16 +44,13 @@ public class Player {
 	public long getId() {
 		return id;
 	}
-	
-	public String getFullName(){
+
+	public String getFullName() {
 		return lastName + ", " + firstName;
 	}
-	
-	/*
+
 	@Override
-	public String toString(){
+	public String toString() {
 		return getFullName();
 	}
-	*/
-	
 }

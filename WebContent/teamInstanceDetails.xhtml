@@ -12,6 +12,61 @@
 	</ui:define>
 
 	<ui:define name="content">
-		
+		<h:form id="teamInstanceForm">
+			<h2>#{administrationTeamInstanceView.welcomeString}</h2>
+			
+			<p:layout id="mainLayout" style="min-width:400px;min-height:800px;">
+				 <p:layoutUnit id="west" position="west" resizable="true" size="400" minSize="400" maxSize="400">
+				 <h3>Aufstellung</h3>
+				
+					<p:dataTable id="lineUp" var="lineUpPlayer" widgetVar="playerTable" value="#{teamInstanceDetailsView.lineUpPlayers}" 
+						 rendered="#{teamInstanceDetailsView.lineUp!=null}" >
+						
+						<p:column headerText="Pos" style="width:25px">
+							<h:outputText value="#{lineUpPlayer.position}" />
+						</p:column>
+						<p:column headerText="Name">
+							 <h:outputText value="#{lineUpPlayer.player}" />
+						</p:column>
+						<p:column headerText="G" style="width:20px">
+							 <h:outputText value="#{lineUpPlayer.wins}" />
+						</p:column>
+						<p:column headerText=":" style="width:5px">
+							 <h:outputText value=":" />
+						</p:column>
+						<p:column headerText="V" style="width:20px">
+							 <h:outputText value="#{lineUpPlayer.losses}" />
+						</p:column>		
+					</p:dataTable>
+				</p:layoutUnit>	
+				
+				<p:layoutUnit id="center" position="center">
+        			<h3>Tabelle</h3>
+    			
+    				<p:dataTable id="ranking" var="team" widgetVar="teamTable" value="#{teamInstanceDetailsView.tableDataList}" 
+						 rendered="#{teamInstanceDetailsView.ranking!=null}" >
+						
+						<p:column style="width:15px">
+							<h:outputText value="#{team.position}" />
+						</p:column>
+						<p:column headerText="Mannschaft">
+							 <h:outputText value="#{team.teamName}" />
+						</p:column>
+						<p:column headerText="G" style="width:20px">
+							 <h:outputText value="#{team.wins}" />
+						</p:column>
+						<p:column headerText="U" style="width:20px">
+							 <h:outputText value="#{team.draws}" />
+						</p:column>
+						<p:column headerText="V" style="width:20px">
+							 <h:outputText value="#{team.losses}" />
+						</p:column>
+						<p:column style="width:30px">
+							<h:outputText value="#{team.points}" />
+						</p:column>		
+					</p:dataTable>	
+    			</p:layoutUnit>
+    		</p:layout>	
+		</h:form>
 	</ui:define>
 </ui:composition>

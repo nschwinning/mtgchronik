@@ -8,11 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Team implements Serializable{
-
-	@Id
-    @GeneratedValue
-    protected long id;
+public class Team extends AbstractEntity{
 
 	@Column(unique=true)
 	private String name;

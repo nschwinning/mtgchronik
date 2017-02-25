@@ -7,11 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class PlayerInstance {
-
-	@Id
-    @GeneratedValue
-    protected long id;
+public class PlayerInstance extends AbstractEntity{
 	
 	@ManyToOne
 	private Player player;
@@ -22,11 +18,19 @@ public class PlayerInstance {
 	@Column
 	private int position;
 	
+	@Column
+	private int wins;
+
+	@Column 
+	private int losses;
+	
 	public PlayerInstance(){}
 	
 	public PlayerInstance(LineUp lineUp,int position){
 		this.lineUp=lineUp;
 		this.position=position;
+		this.wins=0;
+		this.losses=0;
 	}
 
 	public Player getPlayer() {
@@ -61,6 +65,22 @@ public class PlayerInstance {
 		if (player==null)
 			return "";
 		return player.getFirstName() + " " + player.getLastName();
+	}
+	
+	public int getWins() {
+		return wins;
+	}
+
+	public void setWins(int wins) {
+		this.wins = wins;
+	}
+
+	public int getLosses() {
+		return losses;
+	}
+
+	public void setLosses(int losses) {
+		this.losses = losses;
 	}
 	
 }
