@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import org.primefaces.event.RowEditEvent;
 
 import mtgchronik.comparators.PlayerInstanceComparator;
+import mtgchronik.comparators.TableDataComparator;
 import mtgchronik.entities.LineUp;
 import mtgchronik.entities.Player;
 import mtgchronik.entities.PlayerInstance;
@@ -57,6 +58,7 @@ public class AdministrationTeamInstanceView implements Serializable {
 		}
 		if (ranking!=null){
 			tableDataList = teamService.getTableDataForRanking(ranking);
+			tableDataList.sort(new TableDataComparator());
 		}
 		else{
 			tableDataList = new ArrayList<TableData>();
@@ -100,15 +102,15 @@ public class AdministrationTeamInstanceView implements Serializable {
 	}
 	
 	public void onRowEdit(RowEditEvent event){
-		for (PlayerInstance player:lineUpPlayers){
-			playerService.updatePlayerInstance(player);
-		}
+		PlayerInstance player = (PlayerInstance) event.getObject();
+		playerService.updatePlayerInstance(player);
 	}
 	
 	public void onRowCancel(){}
 	
 	public void onTableRowEdit(RowEditEvent event){
-		
+		TableData data = (TableData)event.getObject();
+		teamService.updateTableData(data);
 	}
 	
 	public void onTableRowCancel(){}
@@ -143,5 +145,22 @@ public class AdministrationTeamInstanceView implements Serializable {
 			TableData tableData = teamService.createTableData(ranking, i);
 			tableDataList.add(tableData);
 		}
+	}
+	
+	public TeamInstance getTeamInstance() {
+		return teamInstance;
+	}
+
+	public void setTeamInstance(TeamInstance teamInstance) {
+		this.teamInstance = teamInstance;
+	}
+	
+	public List<String> completeLeague(String query){
+		List<String> results = new ArrayList<String>();
+		return results;
+	}
+	
+	public void saveGeneralInformation(){
+		teamService.updateTeamInstance(teamInstance);
 	}
 }
