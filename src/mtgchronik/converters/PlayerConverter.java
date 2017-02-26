@@ -1,4 +1,4 @@
-package mtgchronik.webfrontend;
+package mtgchronik.converters;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;

@@ -27,11 +27,9 @@
         			
         			<h3>Mannschaftsbild</h3>
         			 <p:fileUpload fileUploadListener="#{administrationTeamInstanceView.handleFileUpload}" mode="advanced"
-                     	 auto="true" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                     	 auto="true" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" update="teamPicture" />
                      	 
-                     <p:graphicImage value="#{imageView.teamPicture}" >
-                     	<f:param name="pictureTeamInstanceId" value="#{administrationTeamInstanceView.teamInstanceId}" />
-                     </p:graphicImage>	 
+                     <h:graphicImage id="teamPicture" value="/image/#{administrationTeamInstanceView.teamInstanceId}" width="650" height="400" />
 				</p:tab>
 				
 				<p:tab title="Tabelle">

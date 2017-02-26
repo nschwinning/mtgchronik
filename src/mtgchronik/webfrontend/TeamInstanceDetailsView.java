@@ -8,6 +8,7 @@ import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import mtgchronik.comparators.PlayerInstanceComparator;
+import mtgchronik.comparators.TableDataComparator;
 import mtgchronik.entities.LineUp;
 import mtgchronik.entities.Player;
 import mtgchronik.entities.PlayerInstance;
@@ -58,6 +59,7 @@ public class TeamInstanceDetailsView {
 		}
 		if (ranking!=null){
 			tableDataList = teamService.getTableDataForRanking(ranking);
+			tableDataList.sort(new TableDataComparator());
 		}
 		else{
 			tableDataList = new ArrayList<TableData>();

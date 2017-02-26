@@ -20,9 +20,7 @@
         				<p:outputLabel for="league" value="Liga: " />
         				<h:outputText id="league" value="#{teamInstanceDetailsView.teamInstance.league}" />
         				
-        				<p:graphicImage value="#{imageView.teamPicture}" >
-                     		<f:param name="pictureTeamInstanceId" value="#{teamInstanceDetailsView.teamInstanceId}" />
-                     	</p:graphicImage>
+        				 <h:graphicImage id="teamPicture" value="/image/#{teamInstanceDetailsView.teamInstanceId}" width="650" height="400" />
 				</p:tab>
 				
 				<p:tab title="Tabelle">

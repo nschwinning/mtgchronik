@@ -46,7 +46,7 @@ public class SeasonService {
 	}
 	
 	public List<Season> getAllSeasons(){
-		Query q = em.createQuery("FROM Season ORDER BY startYear");
+		Query q = em.createQuery("FROM Season ORDER BY startYear DESC");
 		List<Season> seasonList = q.getResultList();
 		return seasonList;
 	}
