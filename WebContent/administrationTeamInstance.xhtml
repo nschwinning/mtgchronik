@@ -10,73 +10,32 @@
 	</f:metadata>
 	
 	<ui:define name="content">
+		
 		<h:form id="teamInstanceForm">
 			<h2>#{administrationTeamInstanceView.welcomeString}</h2>
 			
-			<p:layout id="mainLayout" style="min-width:400px;min-height:800px;">
-				<p:layoutUnit id="north" position="north" size="150" header="Allgemeine Informationen" resizable="true" collapsible="true">
-        			<p:panelGrid columns="2" style="border:0px">
+			<p:tabView orientation="left">
+				
+				<p:tab id="overview" title="Übersicht">
+					<p:panelGrid columns="2" style="border:0px">
         				<p:outputLabel for="league" value="Liga:" />
-        				<p:autoComplete id="league" value="#{administrationTeamInstanceView.teamInstance.league}" completeMethod="#{administrationTeamInstanceView.completeLeague}" />
+        				<p:inplace id="league" editor="true">  
+   							<p:ajax event="save" listener="#{administrationTeamInstanceView.saveGeneralInformation}" update="overview" />
+   							<p:inputText value="#{administrationTeamInstanceView.teamInstance.league}" label="text"/>     
+ 						</p:inplace>
         			</p:panelGrid>
-        			<h:commandButton action="#{administrationTeamInstanceView.saveGeneralInformation}" value="Speichern" update="north" />
-    			</p:layoutUnit>
-				 <p:layoutUnit id="west" position="west" resizable="true" size="400" minSize="400" maxSize="400">
-				 <h3>Aufstellung</h3>
-					<h:commandButton action="#{administrationTeamInstanceView.createLineUp()}" value="Aufstellung anlegen" rendered="#{administrationTeamInstanceView.lineUp==null}" update="mainLayout" />
+        			
+        			<h3>Mannschaftsbild</h3>
+        			 <p:fileUpload fileUploadListener="#{administrationTeamInstanceView.handleFileUpload}" mode="advanced"
+                     	 auto="true" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                     	 
+                     <p:graphicImage value="#{imageView.teamPicture}" >
+                     	<f:param name="pictureTeamInstanceId" value="#{administrationTeamInstanceView.teamInstanceId}" />
+                     </p:graphicImage>	 
+				</p:tab>
 				
-					<p:dataTable id="lineUp" var="lineUpPlayer" widgetVar="playerTable" value="#{administrationTeamInstanceView.lineUpPlayers}" 
-						editable="true" rendered="#{administrationTeamInstanceView.lineUp!=null}" >
-						
-						<p:ajax event="rowEdit" listener="#{administrationTeamInstanceView.onRowEdit}" update="lineUp" />
-       					<p:ajax event="rowEditCancel" listener="#{administrationTeamInstanceView.onRowCancel}" />
-						
-						<p:column headerText="Pos" style="width:25px">
-							<h:outputText value="#{lineUpPlayer.position}" />
-						</p:column>
-						<p:column headerText="Name">
-							 <p:cellEditor>
-								 <f:facet name="output">
-							 		<h:outputText value="#{lineUpPlayer.player}" />
-							 	</f:facet>
-							 	<f:facet name="input">
-							 		<h:selectOneMenu value="#{lineUpPlayer.player}" converter="#{playerConverter}" style="width:100%">
-                       					<f:selectItems value="#{administrationTeamInstanceView.players}" var="man" itemLabel="#{man.fullName}" itemValue="#{man}" />
-                   					</h:selectOneMenu>
-							 	</f:facet>	
-							 </p:cellEditor>
-						</p:column>
-						<p:column headerText="G" style="width:20px">
-							<p:cellEditor>
-								 <f:facet name="output">
-							 		<h:outputText value="#{lineUpPlayer.wins}" />
-							 	</f:facet>
-							 	<f:facet name="input">
-							 		<p:inputText value="#{lineUpPlayer.wins}" />
-							 	</f:facet>
-							</p:cellEditor>
-						</p:column>
-						<p:column headerText=":" style="width:5px">
-							 <h:outputText value=":" />
-						</p:column>
-						<p:column headerText="V" style="width:20px">
-							<p:cellEditor>
-								 <f:facet name="output">
-							 		<h:outputText value="#{lineUpPlayer.losses}" />
-							 	</f:facet>
-							 	<f:facet name="input">
-							 		<p:inputText value="#{lineUpPlayer.losses}" />
-							 	</f:facet>
-							</p:cellEditor>
-						</p:column>		
-						<p:column style="width:32px">
-           					<p:rowEditor />
-       					</p:column>
-					</p:dataTable>
-				</p:layoutUnit>	
-				
-				<p:layoutUnit id="center" position="center">
-        			<h3>Tabelle</h3>
+				<p:tab title="Tabelle">
+					<h3>Tabelle</h3>
         			<h:commandButton action="#{administrationTeamInstanceView.createTable()}" value="Tabelle anlegen" rendered="#{administrationTeamInstanceView.ranking==null}" update="mainLayout" />
     			
     				<p:dataTable id="ranking" var="team" widgetVar="teamTable" value="#{administrationTeamInstanceView.tableDataList}" 
@@ -134,9 +93,117 @@
            					<p:rowEditor />
        					</p:column>
 					</p:dataTable>	
-    			</p:layoutUnit>
-    		</p:layout>	
-		</h:form>
-	</ui:define>
-</ui:composition>		
+				</p:tab>
+				
+				<p:tab title="Aufstellung">
+					<h3>Aufstellung Hinserie</h3>
+					<h:commandButton action="#{administrationTeamInstanceView.createfirstHalfLineUp()}" value="Aufstellung anlegen" rendered="#{administrationTeamInstanceView.firstHalfLineUp==null}" update="mainLayout" />
+				
+					<p:dataTable id="firstHalfLineUp" var="lineUpPlayer" widgetVar="firstPlayerTable" value="#{administrationTeamInstanceView.firstHalfLineUpPlayers}" 
+						editable="true" rendered="#{administrationTeamInstanceView.firstHalfLineUp!=null}" >
+						
+						<p:ajax event="rowEdit" listener="#{administrationTeamInstanceView.onRowEdit}" update="firstHalfLineUp" />
+       					<p:ajax event="rowEditCancel" listener="#{administrationTeamInstanceView.onRowCancel}" />
+						
+						<p:column headerText="Pos" style="width:25px">
+							<h:outputText value="#{lineUpPlayer.position}" />
+						</p:column>
+						<p:column headerText="Name">
+							 <p:cellEditor>
+								 <f:facet name="output">
+							 		<h:outputText value="#{lineUpPlayer.player}" />
+							 	</f:facet>
+							 	<f:facet name="input">
+							 		<h:selectOneMenu value="#{lineUpPlayer.player}" converter="#{playerConverter}" style="width:100%">
+                       					<f:selectItems value="#{administrationTeamInstanceView.players}" var="man" itemLabel="#{man.fullName}" itemValue="#{man}" />
+                   					</h:selectOneMenu>
+							 	</f:facet>	
+							 </p:cellEditor>
+						</p:column>
+						<p:column headerText="G" style="width:20px">
+							<p:cellEditor>
+								 <f:facet name="output">
+							 		<h:outputText value="#{lineUpPlayer.wins}" />
+							 	</f:facet>
+							 	<f:facet name="input">
+							 		<p:inputText value="#{lineUpPlayer.wins}" />
+							 	</f:facet>
+							</p:cellEditor>
+						</p:column>
+						<p:column headerText=":" style="width:5px">
+							 <h:outputText value=":" />
+						</p:column>
+						<p:column headerText="V" style="width:20px">
+							<p:cellEditor>
+								 <f:facet name="output">
+							 		<h:outputText value="#{lineUpPlayer.losses}" />
+							 	</f:facet>
+							 	<f:facet name="input">
+							 		<p:inputText value="#{lineUpPlayer.losses}" />
+							 	</f:facet>
+							</p:cellEditor>
+						</p:column>		
+						<p:column style="width:32px">
+           					<p:rowEditor />
+       					</p:column>
+					</p:dataTable>
+					
+					<h3>Aufstellung Rückserie</h3>
+					<h:commandButton action="#{administrationTeamInstanceView.createSecondHalfLineUp()}" value="Aufstellung anlegen" rendered="#{administrationTeamInstanceView.secondHalfLineUp==null}" update="mainLayout" />
+				
+					<p:dataTable id="secondHalfLineUp" var="lineUpPlayer" widgetVar="secondPlayerTable" value="#{administrationTeamInstanceView.secondHalfLineUpPlayers}" 
+						editable="true" rendered="#{administrationTeamInstanceView.secondHalfLineUp!=null}" >
+						
+						<p:ajax event="rowEdit" listener="#{administrationTeamInstanceView.onRowEdit}" update="secondHalfLineUp" />
+       					<p:ajax event="rowEditCancel" listener="#{administrationTeamInstanceView.onRowCancel}" />
+						
+						<p:column headerText="Pos" style="width:25px">
+							<h:outputText value="#{lineUpPlayer.position}" />
+						</p:column>
+						<p:column headerText="Name">
+							 <p:cellEditor>
+								 <f:facet name="output">
+							 		<h:outputText value="#{lineUpPlayer.player}" />
+							 	</f:facet>
+							 	<f:facet name="input">
+							 		<h:selectOneMenu value="#{lineUpPlayer.player}" converter="#{playerConverter}" style="width:100%">
+                       					<f:selectItems value="#{administrationTeamInstanceView.players}" var="man" itemLabel="#{man.fullName}" itemValue="#{man}" />
+                   					</h:selectOneMenu>
+							 	</f:facet>	
+							 </p:cellEditor>
+						</p:column>
+						<p:column headerText="G" style="width:20px">
+							<p:cellEditor>
+								 <f:facet name="output">
+							 		<h:outputText value="#{lineUpPlayer.wins}" />
+							 	</f:facet>
+							 	<f:facet name="input">
+							 		<p:inputText value="#{lineUpPlayer.wins}" />
+							 	</f:facet>
+							</p:cellEditor>
+						</p:column>
+						<p:column headerText=":" style="width:5px">
+							 <h:outputText value=":" />
+						</p:column>
+						<p:column headerText="V" style="width:20px">
+							<p:cellEditor>
+								 <f:facet name="output">
+							 		<h:outputText value="#{lineUpPlayer.losses}" />
+							 	</f:facet>
+							 	<f:facet name="input">
+							 		<p:inputText value="#{lineUpPlayer.losses}" />
+							 	</f:facet>
+							</p:cellEditor>
+						</p:column>		
+						<p:column style="width:32px">
+           					<p:rowEditor />
+       					</p:column>
+					</p:dataTable>
+				</p:tab>
+				
+			</p:tabView>
+		</h:form>	
 		
+	</ui:define>
+	
+</ui:composition>	

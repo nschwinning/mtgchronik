@@ -29,22 +29,32 @@ public class TeamInstanceDetailsView {
 	
 	private long teamInstanceId;
 	private TeamInstance teamInstance;
-	private LineUp lineUp;
-	private List<PlayerInstance> lineUpPlayers;
+	private LineUp firstHalfLineUp;
+	private LineUp secondHalfLineUp;
+	private List<PlayerInstance> firstHalfLineUpPlayers;
+	private List<PlayerInstance> secondHalfLineUpPlayers;
 	private List<Player> players;
 	private Ranking ranking;
 	private List<TableData> tableDataList;
 	
 	public void loadTeamInstance(){
 		this.teamInstance=teamService.getTeamInstanceByID(teamInstanceId);
-		this.lineUp = teamService.getLineUpForTeamInstance(teamInstance);
+		this.firstHalfLineUp = teamService.getLineUpForTeamInstance(teamInstance,1);
+		this.secondHalfLineUp = teamService.getLineUpForTeamInstance(teamInstance,2);
 		this.ranking = teamService.getRankingForTeamInstance(teamInstance);
-		if (lineUp!=null){
-			lineUpPlayers = playerService.getPlayerInstancesForLineUp(lineUp);
-			lineUpPlayers.sort(new PlayerInstanceComparator());
+		if (firstHalfLineUp!=null){
+			firstHalfLineUpPlayers = playerService.getPlayerInstancesForLineUp(firstHalfLineUp);
+			firstHalfLineUpPlayers.sort(new PlayerInstanceComparator());
 		}
 		else {
-			lineUpPlayers = new ArrayList<PlayerInstance>();
+			firstHalfLineUpPlayers = new ArrayList<PlayerInstance>();
+		}
+		if (secondHalfLineUp!=null){
+			secondHalfLineUpPlayers = playerService.getPlayerInstancesForLineUp(secondHalfLineUp);
+			secondHalfLineUpPlayers.sort(new PlayerInstanceComparator());
+		}
+		else {
+			secondHalfLineUpPlayers = new ArrayList<PlayerInstance>();
 		}
 		if (ranking!=null){
 			tableDataList = teamService.getTableDataForRanking(ranking);
@@ -71,20 +81,20 @@ public class TeamInstanceDetailsView {
 		this.teamInstanceId = teamInstanceId;
 	}
 
-	public LineUp getLineUp() {
-		return lineUp;
+	public LineUp getFirstHalfLineUp() {
+		return firstHalfLineUp;
 	}
 
-	public void setLineUp(LineUp lineUp) {
-		this.lineUp = lineUp;
+	public void setFirstHalfLineUp(LineUp firstHalfLineUp) {
+		this.firstHalfLineUp = firstHalfLineUp;
 	}
 
-	public List<PlayerInstance> getLineUpPlayers() {
-		return lineUpPlayers;
+	public List<PlayerInstance> getFirstHalfLineUpPlayers() {
+		return firstHalfLineUpPlayers;
 	}
 
-	public void setLineUpPlayers(List<PlayerInstance> lineUpPlayers) {
-		this.lineUpPlayers = lineUpPlayers;
+	public void setLineUpPlayers(List<PlayerInstance> firstHalfLineUpPlayers) {
+		this.firstHalfLineUpPlayers = firstHalfLineUpPlayers;
 	}
 
 	public List<Player> getPlayers() {
@@ -109,6 +119,22 @@ public class TeamInstanceDetailsView {
 
 	public void setTableDataList(List<TableData> tableDataList) {
 		this.tableDataList = tableDataList;
+	}
+
+	public LineUp getSecondHalfLineUp() {
+		return secondHalfLineUp;
+	}
+
+	public void setSecondHalfLineUp(LineUp secondHalfLineUp) {
+		this.secondHalfLineUp = secondHalfLineUp;
+	}
+
+	public List<PlayerInstance> getSecondHalfLineUpPlayers() {
+		return secondHalfLineUpPlayers;
+	}
+
+	public void setSecondHalfLineUpPlayers(List<PlayerInstance> secondHalfLineUpPlayers) {
+		this.secondHalfLineUpPlayers = secondHalfLineUpPlayers;
 	}
 	
 }

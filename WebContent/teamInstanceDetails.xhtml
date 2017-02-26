@@ -15,36 +15,17 @@
 		<h:form id="teamInstanceForm">
 			<h2>#{administrationTeamInstanceView.welcomeString}</h2>
 			
-			<p:layout id="mainLayout" style="min-width:400px;min-height:800px;">
-				<p:layoutUnit position="north" size="150" header="Allgemeine Informationen" resizable="true" collapsible="true">
+			<p:tabView orientation="left">
+				<p:tab id="overview" title="Übersicht">
         				<p:outputLabel for="league" value="Liga: " />
         				<h:outputText id="league" value="#{teamInstanceDetailsView.teamInstance.league}" />
-    			</p:layoutUnit>
-				 <p:layoutUnit id="west" position="west" resizable="true" size="400" minSize="400" maxSize="400">
-				 <h3>Aufstellung</h3>
+        				
+        				<p:graphicImage value="#{imageView.teamPicture}" >
+                     		<f:param name="pictureTeamInstanceId" value="#{teamInstanceDetailsView.teamInstanceId}" />
+                     	</p:graphicImage>
+				</p:tab>
 				
-					<p:dataTable id="lineUp" var="lineUpPlayer" widgetVar="playerTable" value="#{teamInstanceDetailsView.lineUpPlayers}" 
-						 rendered="#{teamInstanceDetailsView.lineUp!=null}" >
-						
-						<p:column headerText="Pos" style="width:25px">
-							<h:outputText value="#{lineUpPlayer.position}" />
-						</p:column>
-						<p:column headerText="Name">
-							 <h:outputText value="#{lineUpPlayer.player}" />
-						</p:column>
-						<p:column headerText="G" style="width:20px">
-							 <h:outputText value="#{lineUpPlayer.wins}" />
-						</p:column>
-						<p:column headerText=":" style="width:5px">
-							 <h:outputText value=":" />
-						</p:column>
-						<p:column headerText="V" style="width:20px">
-							 <h:outputText value="#{lineUpPlayer.losses}" />
-						</p:column>		
-					</p:dataTable>
-				</p:layoutUnit>	
-				
-				<p:layoutUnit id="center" position="center">
+				<p:tab title="Tabelle">
         			<h3>Tabelle</h3>
     			
     				<p:dataTable id="ranking" var="team" widgetVar="teamTable" value="#{teamInstanceDetailsView.tableDataList}" 
@@ -65,12 +46,59 @@
 						<p:column headerText="V" style="width:20px">
 							 <h:outputText value="#{team.losses}" />
 						</p:column>
-						<p:column style="width:35px">
+						<p:column style="width:45px">
 							<h:outputText value="#{team.points}" />
 						</p:column>		
 					</p:dataTable>	
-    			</p:layoutUnit>
-    		</p:layout>	
+    			</p:tab>
+				
+				<p:tab title="Aufstellung">
+
+				 <h3>Aufstellung Hinserie</h3>
+				
+					<p:dataTable id="firstHalfLineUp" var="lineUpPlayer" widgetVar="firstPlayerTable" value="#{teamInstanceDetailsView.firstHalfLineUpPlayers}" 
+						 rendered="#{teamInstanceDetailsView.firstHalfLineUp!=null}" >
+						
+						<p:column headerText="Pos" style="width:25px">
+							<h:outputText value="#{lineUpPlayer.position}" />
+						</p:column>
+						<p:column headerText="Name">
+							 <h:outputText value="#{lineUpPlayer.player}" />
+						</p:column>
+						<p:column headerText="G" style="width:20px">
+							 <h:outputText value="#{lineUpPlayer.wins}" />
+						</p:column>
+						<p:column headerText=":" style="width:5px">
+							 <h:outputText value=":" />
+						</p:column>
+						<p:column headerText="V" style="width:20px">
+							 <h:outputText value="#{lineUpPlayer.losses}" />
+						</p:column>		
+					</p:dataTable>
+					
+					<h3>Aufstellung Rückserie</h3>
+				
+					<p:dataTable id="secondHalfLineUp" var="lineUpPlayer" widgetVar="secondPlayerTable" value="#{teamInstanceDetailsView.secondHalfLineUpPlayers}" 
+						 rendered="#{teamInstanceDetailsView.secondHalfLineUp!=null}" >
+						
+						<p:column headerText="Pos" style="width:25px">
+							<h:outputText value="#{lineUpPlayer.position}" />
+						</p:column>
+						<p:column headerText="Name">
+							 <h:outputText value="#{lineUpPlayer.player}" />
+						</p:column>
+						<p:column headerText="G" style="width:20px">
+							 <h:outputText value="#{lineUpPlayer.wins}" />
+						</p:column>
+						<p:column headerText=":" style="width:5px">
+							 <h:outputText value=":" />
+						</p:column>
+						<p:column headerText="V" style="width:20px">
+							 <h:outputText value="#{lineUpPlayer.losses}" />
+						</p:column>		
+					</p:dataTable>
+				</p:tab>
+    		</p:tabView>	
 		</h:form>
 	</ui:define>
 </ui:composition>

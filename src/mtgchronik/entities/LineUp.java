@@ -1,22 +1,21 @@
 package mtgchronik.entities;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class LineUp extends AbstractEntity{
 	
-	@OneToOne
+	@ManyToOne
 	private TeamInstance teamInstance;
+	
+	@Column
+	private int half;
 	
 	public LineUp(){}
 	
-	public LineUp(TeamInstance teamInstance){
+	public LineUp(TeamInstance teamInstance, int half){
 		this.teamInstance=teamInstance;
 	}
 

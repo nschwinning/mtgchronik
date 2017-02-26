@@ -26,6 +26,9 @@ public class TeamInstance extends AbstractEntity{
 	
 	@Column
 	private String league;
+	
+	@ManyToOne
+	private Resource teamPicture;
 
 	public TeamInstance(){}
 	
@@ -60,5 +63,13 @@ public class TeamInstance extends AbstractEntity{
 
 	public void setLeague(String league) {
 		this.league = league;
+	}
+
+	public Resource getTeamPicture() {
+		return teamPicture;
+	}
+
+	public void setTeamPicture(Resource teamPicture) {
+		this.teamPicture = teamPicture;
 	}
 }
