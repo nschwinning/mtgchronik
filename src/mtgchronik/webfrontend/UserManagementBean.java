@@ -21,8 +21,8 @@ public class UserManagementBean {
 	public void init(){
 		if (userService.getUserByName("mtgadmin")==null){
 			try {
-				userService.createUser("mtgchronik", hashPassword("mtgchronik"), "ADMINISTRATOR");
-				System.out.println("Admin mtgchronik successfully created!");
+				userService.createUser("mtgadmin", hashPassword("mtgadmin"), "ADMINISTRATOR");
+				System.out.println("Admin mtgadmin successfully created!");
 			} catch (NoSuchAlgorithmException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

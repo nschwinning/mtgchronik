@@ -17,7 +17,7 @@
   
   <security-constraint>
     <web-resource-collection>
-      <web-resource-name>user</web-resource-name>
+      <web-resource-name>administrator</web-resource-name>
       <url-pattern>/administration/*</url-pattern>
       <http-method>POST</http-method>
       <http-method>GET</http-method>
