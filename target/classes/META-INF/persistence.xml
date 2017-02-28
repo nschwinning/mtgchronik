@@ -13,6 +13,8 @@
 		<class>mtgchronik.entities.LineUp</class>
 		<class>mtgchronik.entities.Ranking</class>
 		<class>mtgchronik.entities.TableData</class>
+		<class>mtgchronik.entities.Resource</class>
+		<class>mtgchronik.entities.User</class>
 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.show_sql" value="false" />

@@ -45,24 +45,7 @@
   		<div id="content">
           <div id="banner" style="clear: both;">
           </div>
-
-          <!-- We show a warning bar if the system is in maintenance mode. -->
-          <h:panelGroup rendered="#{userController.admin and maintenanceController.active}">
-            <h2 style="text-align: center;">
-              <h:graphicImage
-                width="24"
-                height="24"
-                library="skala"
-                name="/images/header/h2/warning.png"/>
-              <h:outputText value="#{l10n['maintenance.warning']}"/>
-              <h:graphicImage
-                width="24"
-                height="24"
-                library="skala"
-                name="/images/header/h2/warning.png"/>
-            </h2>  
-          </h:panelGroup>          
-          <!-- If java script is not available we display an error -->
+          
           <noscript>
             <div id="noscript-error">
               <ui:include src="noscript.xhtml"/>            

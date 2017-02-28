@@ -11,8 +11,9 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import mtgchronik.entities.LineUp;
-import mtgchronik.entities.Season;
 import mtgchronik.entities.Ranking;
+import mtgchronik.entities.Resource;
+import mtgchronik.entities.Season;
 import mtgchronik.entities.TableData;
 import mtgchronik.entities.Team;
 import mtgchronik.entities.TeamInstance;
@@ -124,9 +125,10 @@ public class TeamService {
 		return q.getResultList();
 	}
 	
-	public LineUp getLineUpForTeamInstance(TeamInstance teamInstance){
-		TypedQuery<LineUp> q = em.createQuery("FROM LineUp WHERE teamInstance=:teamInstance", LineUp.class);
+	public LineUp getLineUpForTeamInstance(TeamInstance teamInstance, int half){
+		TypedQuery<LineUp> q = em.createQuery("FROM LineUp WHERE teamInstance=:teamInstance AND half=:half", LineUp.class);
 		q.setParameter("teamInstance", teamInstance);
+		q.setParameter("half", half);
 		try{
 			return q.getSingleResult();
 		}
@@ -135,8 +137,8 @@ public class TeamService {
 		}
 	}
 	
-	public LineUp createLineUp(TeamInstance teamInstance){
-		LineUp lineUp = new LineUp(teamInstance);
+	public LineUp createLineUp(TeamInstance teamInstance, int half){
+		LineUp lineUp = new LineUp(teamInstance, half);
 		em.persist(lineUp);
 		return lineUp;
 	}
@@ -173,5 +175,15 @@ public class TeamService {
 		TypedQuery<TableData> q = em.createQuery("FROM TableData WHERE table=:table", TableData.class);
 		q.setParameter("table", table);
 		return q.getResultList();
+	}
+	
+	public Resource createResource(String fileName, byte[] content){
+		Resource resource = new Resource(fileName,content);
+		em.persist(resource);
+		return resource;
+	}
+	
+	public Resource updateResource(Resource resource){
+		return em.merge(resource);
 	}
 }

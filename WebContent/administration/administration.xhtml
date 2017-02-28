@@ -49,7 +49,7 @@
 						</p:treeNode>
 
 						<p:treeNode type="teamInstance" icon="ui-icon-image">
-							<p:link outcome="/administrationTeamInstance.xhtml"
+							<p:link outcome="/administration/administrationTeamInstance.xhtml"
 								value="#{doc.team.name}">
 								<f:param name="teamInstanceId" value="#{doc.id}" />
 							</p:link>
@@ -92,7 +92,7 @@
 					</p:dataTable>
 				</p:tab>
 				<p:tab id="players" title="Spieler">
-					<ui:include page="administrationPlayers.xhtml" />
+					<ui:include page="/administration/administrationPlayers.xhtml" />
 				</p:tab>
 			</p:tabView>
 		</h:form>
