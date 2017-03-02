@@ -1,4 +1,4 @@
-package mtgchronik.webfrontend;
+package mtgchronik.views;
 
 import java.io.Serializable;
 import java.util.ArrayList;

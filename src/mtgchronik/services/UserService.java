@@ -25,10 +25,14 @@ public class UserService {
 		}
 	}
 	
-	public User createUser(String userName, String password, String role){
-		User user = new User(userName,password,role);
+	public User createUser(String userName, String password, boolean admin){
+		User user = new User(userName,password,admin);
 		em.persist(user);
 		return user;
+	}
+	
+	public User updateUser(User user){
+		return em.merge(user);
 	}
 
 }

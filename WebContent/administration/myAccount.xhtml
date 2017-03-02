@@ -1,0 +1,25 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml">
+	<ui:define name="content">
+		<h:form id="myAccount">
+			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+			
+			<h3>Passwort ändern</h3>
+			<h:panelGrid id="grid" columns="2" cellpadding="5">
+				<p:outputLabel for="username" value="Benutzername:" />
+        		<p:inputText id="username" value="#{myAccountView.currentUser.userName}" disabled="true" />
+        		<p:outputLabel for="oldPassword" value="Altes Passwort:" />
+        		<p:inputSecret id="oldPassword" value="#{myAccountView.oldPassword}" />
+        		<p:outputLabel for="newPassword" value="Neues Passwort:" />
+        		<p:inputSecret id="newPassword" value="#{myAccountView.newPassword}" />
+        		<p:outputLabel for="newPasswordConfirm" value="Neues Passwort bestätigen:" />
+        		<p:inputSecret id="newPasswordConfirm" value="#{myAccountView.newPasswordConfirm}" />
+			</h:panelGrid>
+			
+			<p:commandButton value="Speichern" action="#{myAccountView.saveNewPassword}" update="messages" />
+		</h:form>
+	</ui:define>
+</ui:composition>		
