@@ -3,13 +3,18 @@
 	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="mtgchronik">
-		<jta-data-source>java:jboss/datasources/mtgchronikDS</jta-data-source>
+		<jta-data-source>java:/PostgresDS</jta-data-source>
+		<class>mtgchronik.entities.AbstractEntity</class>
 		<class>mtgchronik.entities.Team</class>
 		<class>mtgchronik.entities.Season</class>
 		<class>mtgchronik.entities.TeamInstance</class>
 		<class>mtgchronik.entities.Player</class>
 		<class>mtgchronik.entities.PlayerInstance</class>
 		<class>mtgchronik.entities.LineUp</class>
+		<class>mtgchronik.entities.Ranking</class>
+		<class>mtgchronik.entities.TableData</class>
+		<class>mtgchronik.entities.Resource</class>
+		<class>mtgchronik.entities.User</class>
 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.show_sql" value="false" />
