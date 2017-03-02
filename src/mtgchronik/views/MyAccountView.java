@@ -48,9 +48,12 @@ public class MyAccountView extends AbstractView{
 				user.setPassword(BCrypt.hash(newPassword));
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Passwort erfolgreich gesetzt."));
 			}
+			else {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fehler", "Neues Passwort und Bestätigung stimmen nicht überein"));
+			}
 		}
 		else{
-			
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fehler", "Altes Passwort ist nicht korrekt."));
 		}
 		
 	}
