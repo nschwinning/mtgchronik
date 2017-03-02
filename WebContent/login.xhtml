@@ -4,27 +4,25 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml">
 	<ui:define name="content">
-		<form action="j_security_check" method="post" class="form-horizontal">
+		<h:form>
 			<div class="form-group">
 				<label class="control-label col-sm-2">Username:</label>
 				<div class="col-sm-10">
-					<input type="text" class="" name="j_username"
-						placeholder="Username" />
+					<h:inputText id="it_username" value="#{userController.userName}" />
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-2">Password:</label>
 				<div class="col-sm-10">
-					<input type="password" class="" name="j_password"
-						placeholder="Password" />
+					<h:inputSecret id="it_password" value="#{userController.password}" />
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
-					<button type="submit" class="btn btn-primary">Login</button>
+					<h:commandButton action="#{userController.login}" value="Login"/>
 				</div>
 			</div>
-		</form>
+		</h:form>
 
 	</ui:define>
 </ui:composition>

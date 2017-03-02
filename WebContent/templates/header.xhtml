@@ -7,13 +7,19 @@
 <body>
   <ui:composition>
     <div id="header-container">
+    
+       <h:form rendered="#{userController.loggedIn}">
+       		<div class="header-button">           
+       			<h:commandLink action="#{loginView.doLogout}" value="Logout"/>         
+       		</div>
+       </h:form>
 	
-	   <h:form>
+	   <h:form rendered="#{not userController.loggedIn}">
 	   
         <div class="header-button">
           <h:commandLink
-            action="/administration/administration.xhtml"
-            value="Administration"/>
+            action="/login.xhtml"
+            value="Login"/>
         </div>    
 
       </h:form> 	

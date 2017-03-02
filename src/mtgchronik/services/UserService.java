@@ -30,5 +30,9 @@ public class UserService {
 		em.persist(user);
 		return user;
 	}
+	
+	public User updateUser(User user){
+		return em.merge(user);
+	}
 
 }
