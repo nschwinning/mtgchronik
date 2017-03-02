@@ -12,7 +12,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import mtgchronik.webfrontend.UserController;
+import mtgchronik.controllers.UserController;
 
 public class LoginFilter implements Filter {
 

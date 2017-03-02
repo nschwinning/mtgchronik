@@ -1,4 +1,4 @@
-package mtgchronik.webfrontend;
+package mtgchronik.views;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -9,17 +9,24 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.jboss.logging.Logger;
 
+import mtgchronik.controllers.UserController;
+import mtgchronik.entities.User;
 import mtgchronik.services.UserService;
 
 public abstract class AbstractView implements Serializable{
 
 	@EJB
 	UserService userService;
+	
+	@Inject
+	private UserController userController;
+	
 	/** Logger used for derived classes */
 	private Logger logger;
 
@@ -29,6 +36,11 @@ public abstract class AbstractView implements Serializable{
 	 * little+ * slower. * @return A logger instance to be used by this
 	 * controller.
 	 */
+	
+	public User getCurrentUser() {
+		return userController.getCurrentUser();
+	}
+	
 	final Logger getLogger() {
 		if (logger == null)
 			logger = Logger.getLogger(getClass());

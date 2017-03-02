@@ -13,7 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import mtgchronik.webfrontend.UserController;
+import mtgchronik.controllers.UserController;
+
 
 public class LoginRedirectHomeFilter implements Filter {
 

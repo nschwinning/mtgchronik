@@ -1,4 +1,4 @@
-package mtgchronik.webfrontend;
+package mtgchronik.views;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

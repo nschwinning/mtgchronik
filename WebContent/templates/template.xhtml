@@ -65,7 +65,10 @@
 						icon="ui-icon-home" />
 					<p:menuitem value="Administration"
 						url="/administration/administration.xhtml"
-						rendered="#{userController.loggedIn}" />	
+						rendered="#{userController.loggedIn}" />
+					<p:menuitem value="Mein Account"
+						url="/administration/myAccount.xhtml"
+						rendered="#{userController.loggedIn}" />			
 				</p:menubar>
             <ui:insert name="content"/>
           </div>

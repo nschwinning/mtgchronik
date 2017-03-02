@@ -1,4 +1,4 @@
-package mtgchronik.webfrontend;
+package mtgchronik.controllers;
 
 import java.io.Serializable;
 

@@ -23,7 +23,7 @@ public class FirstTimeSetup {
 		if (userService.getUserByName("mtgadmin") == null) {
 			String password = "mtgadmin";
 			password = BCrypt.hash("mtgadmin");
-			userService.createUser("mtgadmin", password, "ADMINISTRATOR");
+			userService.createUser("mtgadmin", password, true);
 			System.out.println("Admin mtgadmin successfully created!");
 		}
 	}

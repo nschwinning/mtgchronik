@@ -18,14 +18,14 @@ public class User extends AbstractEntity{
 	private String password;
 	
 	@Column
-	private String role;
+	private boolean admin;
 	
 	public User(){}
 	
-	public User(String userName, String password, String role){
+	public User(String userName, String password, boolean admin){
 		this.userName=userName;
 		this.password=password;
-		this.role=role;
+		this.admin=admin;
 	}
 
 	public String getUserName() {
@@ -44,12 +44,12 @@ public class User extends AbstractEntity{
 		this.password = password;
 	}
 
-	public String getRole() {
-		return role;
+	public boolean isAdmin() {
+		return admin;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 	
 }
