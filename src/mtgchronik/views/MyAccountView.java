@@ -6,6 +6,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import mtgchronik.bcrypt.BCrypt;
+import mtgchronik.controllers.UserController;
 import mtgchronik.entities.User;
 
 @ManagedBean
@@ -46,6 +47,8 @@ public class MyAccountView extends AbstractView{
 		if (BCrypt.check(oldPassword, user.getPassword())){
 			if (newPassword.equals(newPasswordConfirm)){
 				user.setPassword(BCrypt.hash(newPassword));
+				user = userService.updateUser(user);
+				userController.setCurrentUser(user);
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Passwort erfolgreich gesetzt."));
 			}
 			else {

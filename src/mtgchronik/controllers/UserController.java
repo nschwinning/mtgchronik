@@ -102,10 +102,9 @@ public class UserController implements Serializable{
 		return currentUser;
 	}
 
-	/*
 	public void setCurrentUser(User currentUser) {
 		this.currentUser = currentUser;
-	}*/
+	}
 	
 	public boolean isLoggedIn(){
 		return currentUser!=null;

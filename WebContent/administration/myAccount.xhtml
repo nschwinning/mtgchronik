@@ -12,11 +12,11 @@
 				<p:outputLabel for="username" value="Benutzername:" />
         		<p:inputText id="username" value="#{myAccountView.currentUser.userName}" disabled="true" />
         		<p:outputLabel for="oldPassword" value="Altes Passwort:" />
-        		<p:inputSecret id="oldPassword" value="#{myAccountView.oldPassword}" />
+        		<h:inputSecret id="oldPassword" value="#{myAccountView.oldPassword}" />
         		<p:outputLabel for="newPassword" value="Neues Passwort:" />
-        		<p:inputSecret id="newPassword" value="#{myAccountView.newPassword}" />
+        		<h:inputSecret id="newPassword" value="#{myAccountView.newPassword}" />
         		<p:outputLabel for="newPasswordConfirm" value="Neues Passwort bestätigen:" />
-        		<p:inputSecret id="newPasswordConfirm" value="#{myAccountView.newPasswordConfirm}" />
+        		<h:inputSecret id="newPasswordConfirm" value="#{myAccountView.newPasswordConfirm}" />
 			</h:panelGrid>
 			
 			<p:commandButton value="Speichern" action="#{myAccountView.saveNewPassword}" update="messages" />

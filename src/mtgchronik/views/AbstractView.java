@@ -25,7 +25,7 @@ public abstract class AbstractView implements Serializable{
 	UserService userService;
 	
 	@Inject
-	private UserController userController;
+	protected UserController userController;
 	
 	/** Logger used for derived classes */
 	private Logger logger;
@@ -40,6 +40,7 @@ public abstract class AbstractView implements Serializable{
 	public User getCurrentUser() {
 		return userController.getCurrentUser();
 	}
+
 	
 	final Logger getLogger() {
 		if (logger == null)
