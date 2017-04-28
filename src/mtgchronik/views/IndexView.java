@@ -60,12 +60,14 @@ public class IndexView {
 			 seasonMap.put(s.getStartYear(), tempNode);
 		 }
 		 for (TeamInstance ti:teamInstanceList){
-			 if (seasonMap.containsKey(ti.getSeason().getStartYear())){
-				 TreeNode tempNode = new DefaultTreeNode("teamInstance",ti,seasonMap.get(ti.getSeason()));
-				 seasonMap.get(ti.getSeason().getStartYear()).getChildren().add(tempNode);
-			 }
-			 else{
-				 System.out.println("Season was not found for TeamInstance. Season is " + ti.getSeason().getRepresentation());
+			 if (ti.isVisible()){
+				 if (seasonMap.containsKey(ti.getSeason().getStartYear())){
+					 TreeNode tempNode = new DefaultTreeNode("teamInstance",ti,seasonMap.get(ti.getSeason()));
+					 seasonMap.get(ti.getSeason().getStartYear()).getChildren().add(tempNode);
+				 }
+				 else{
+					 System.out.println("Season was not found for TeamInstance. Season is " + ti.getSeason().getRepresentation());
+				 }
 			 }
 		 }
 	 }

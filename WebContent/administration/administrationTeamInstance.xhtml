@@ -23,6 +23,10 @@
    							<p:ajax event="save" listener="#{administrationTeamInstanceView.saveGeneralInformation}" update="overview" />
    							<p:inputText value="#{administrationTeamInstanceView.teamInstance.league}" label="text"/>     
  						</p:inplace>
+ 						<p:outputLabel for="visible" value="Öffentlich:" />
+ 						<p:selectBooleanCheckbox value="#{administrationTeamInstanceView.teamInstance.visible}" id="visible">
+            				<p:ajax update="overview" listener="#{administrationTeamInstanceView.saveGeneralInformation}" />
+        				</p:selectBooleanCheckbox>
         			</p:panelGrid>
         			
         			<h3>Mannschaftsbild</h3>
@@ -33,13 +37,18 @@
 				</p:tab>
 				
 				<p:tab title="Tabelle">
-					<h3>Tabelle</h3>
         			<h:commandButton action="#{administrationTeamInstanceView.createTable()}" value="Tabelle anlegen" rendered="#{administrationTeamInstanceView.ranking==null}" update="mainLayout" />
     			
     				<p:dataTable id="ranking" var="team" widgetVar="teamTable" value="#{administrationTeamInstanceView.tableDataList}" 
 						editable="true" rendered="#{administrationTeamInstanceView.ranking!=null}" >
 						<p:ajax event="rowEdit" listener="#{administrationTeamInstanceView.onTableRowEdit}" update="ranking" />
        					<p:ajax event="rowEditCancel" listener="#{administrationTeamInstanceView.onTableRowCancel}" />
+       					
+       					 <f:facet name="header">
+       					 	Tabelle
+       					 	<p:commandButton id="add" type="button" value="+" action="#{administrationTeamInstanceView.addTeam()}" update="ranking" />
+        					<p:commandButton id="remove" type="button" value="-" action="#{administrationTeamInstanceView.removeTeam()}" update="ranking" />
+    					</f:facet>
 						
 						<p:column style="width:15px">
 							<h:outputText value="#{team.position}" />
@@ -50,7 +59,7 @@
 							 		<h:outputText value="#{team.teamName}" />
 							 	</f:facet>
 							 	<f:facet name="input">
-							 		<p:inputText value="#{team.teamName}" />
+							 		<p:autoComplete value="#{team.teamName}" completeMethod="#{administrationTeamInstanceView.completeTeamName}" />
 							 	</f:facet>
 							</p:cellEditor>
 						</p:column>
@@ -95,7 +104,7 @@
 				
 				<p:tab title="Aufstellung">
 					<h3>Aufstellung Hinserie</h3>
-					<h:commandButton action="#{administrationTeamInstanceView.createfirstHalfLineUp()}" value="Aufstellung anlegen" rendered="#{administrationTeamInstanceView.firstHalfLineUp==null}" update="mainLayout" />
+					<h:commandButton action="#{administrationTeamInstanceView.createFirstHalfLineUp()}" value="Aufstellung anlegen" rendered="#{administrationTeamInstanceView.firstHalfLineUp==null}" update="mainLayout" />
 				
 					<p:dataTable id="firstHalfLineUp" var="lineUpPlayer" widgetVar="firstPlayerTable" value="#{administrationTeamInstanceView.firstHalfLineUpPlayers}" 
 						editable="true" rendered="#{administrationTeamInstanceView.firstHalfLineUp!=null}" >

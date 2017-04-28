@@ -12,7 +12,7 @@
 	</ui:define>
 
 	<ui:define name="content">
-		<h:form id="teamInstanceForm">
+		<h:form id="teamInstanceForm" rendered="#{teamInstanceDetailsView.teamInstance.visible}">
 			<h2>#{administrationTeamInstanceView.welcomeString}</h2>
 			
 			<p:tabView orientation="left">
@@ -97,6 +97,10 @@
 					</p:dataTable>
 				</p:tab>
     		</p:tabView>	
+		</h:form>
+		<h:form id="teamInstanceNotAvailable" rendered="#{not teamInstanceDetailsView.teamInstance.visible}">
+			<h2>Fehler</h2>
+			<h:outputText value="Die gewünschte Resource kann nicht angezeigt werden!" />
 		</h:form>
 	</ui:define>
 </ui:composition>

@@ -125,6 +125,11 @@ public class TeamService {
 		return q.getResultList();
 	}
 	
+	public List<String> getAllTeamNames(){
+		TypedQuery<String> q = em.createQuery("SELECT DISTINCT td.teamName FROM TableData td",String.class);
+		return q.getResultList();
+	}
+	
 	public LineUp getLineUpForTeamInstance(TeamInstance teamInstance, int half){
 		TypedQuery<LineUp> q = em.createQuery("FROM LineUp WHERE teamInstance=:teamInstance AND half=:half", LineUp.class);
 		q.setParameter("teamInstance", teamInstance);
@@ -186,4 +191,5 @@ public class TeamService {
 	public Resource updateResource(Resource resource){
 		return em.merge(resource);
 	}
+	
 }

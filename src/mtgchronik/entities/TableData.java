@@ -25,6 +25,12 @@ public class TableData extends AbstractEntity{
 	@Column
 	private int losses;
 	
+	@Column
+	private int gameWins;
+	
+	@Column
+	private int gameLosses;
+	
 	public TableData(){}
 	
 	public TableData(Ranking table, int position){
@@ -91,6 +97,22 @@ public class TableData extends AbstractEntity{
 		int plusPoints = wins*2+draws;
 		int minusPoints = draws + losses*2;
 		return plusPoints + ":" + minusPoints;
+	}
+
+	public int getGameWins() {
+		return gameWins;
+	}
+
+	public void setGameWins(int gameWins) {
+		this.gameWins = gameWins;
+	}
+
+	public int getGameLosses() {
+		return gameLosses;
+	}
+
+	public void setGameLosses(int gameLosses) {
+		this.gameLosses = gameLosses;
 	}
 	
 }

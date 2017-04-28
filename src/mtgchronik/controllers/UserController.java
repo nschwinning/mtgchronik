@@ -66,9 +66,11 @@ public class UserController implements Serializable{
 	public String login() {
 		//TODO: Get the correct persistence unit from the request
 		currentUser = userService.getUserByName(userName);
-		if (!BCrypt.check(password,currentUser.getPassword())){
-			getLogger().info("Login of user " + currentUser.getUserName() + " not successful!");
-			currentUser=null;
+		if (currentUser!=null){
+			if (!BCrypt.check(password,currentUser.getPassword())){
+				getLogger().info("Login of user " + currentUser.getUserName() + " not successful!");
+				currentUser=null;
+			}
 		}
 
 		if (currentUser == null) {
