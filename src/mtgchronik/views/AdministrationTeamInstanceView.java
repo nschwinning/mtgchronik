@@ -25,7 +25,7 @@ import mtgchronik.services.TeamService;
 
 @ManagedBean
 @ViewScoped
-public class AdministrationTeamInstanceView implements Serializable {
+public class AdministrationTeamInstanceView extends AbstractView implements Serializable {
 
 	/**
 	 * 
@@ -212,5 +212,31 @@ public class AdministrationTeamInstanceView implements Serializable {
 
 	public void setSecondHalfLineUpPlayers(List<PlayerInstance> secondHalfLineUpPlayers) {
 		this.secondHalfLineUpPlayers = secondHalfLineUpPlayers;
+	}
+	
+	public List<String> completeTeamName(String query) {
+		List<String> results = new ArrayList<String>();
+		if (query==null)
+			return results;
+		List<String> temp = teamService.getAllTeamNames();
+		if (temp==null)
+			return results;
+		getLogger().info("Result list size is " + temp.size());
+		for (String s:temp){
+			if (s!=null){
+				if (s.toLowerCase().contains(query.toLowerCase())){
+					results.add(s);
+				}
+			}
+		}
+		return results;
+	}
+	
+	public void addTeam(){
+		System.out.println("Add team");
+	}
+	
+	public void removeTeam(){
+		System.out.println("Remove team");
 	}
 }

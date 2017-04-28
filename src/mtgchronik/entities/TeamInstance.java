@@ -29,6 +29,9 @@ public class TeamInstance extends AbstractEntity{
 	
 	@ManyToOne
 	private Resource teamPicture;
+	
+	@Column(columnDefinition="boolean default false")
+	private boolean visible;
 
 	public TeamInstance(){}
 	
@@ -71,5 +74,13 @@ public class TeamInstance extends AbstractEntity{
 
 	public void setTeamPicture(Resource teamPicture) {
 		this.teamPicture = teamPicture;
+	}
+
+	public boolean isVisible() {
+		return visible;
+	}
+
+	public void setVisible(boolean visible) {
+		this.visible = visible;
 	}
 }

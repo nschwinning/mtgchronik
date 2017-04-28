@@ -18,7 +18,7 @@ public abstract class AbstractEntity implements Serializable {
 	
 	@Override
 	public boolean equals(Object other) {
-		return (other != null && getClass() == other.getClass() && id != null) ? id.equals(((Player) other).id)
+		return (other != null && getClass() == other.getClass() && id != null) ? id.equals(((AbstractEntity) other).id)
 				: (other == this);
 	}
 
