@@ -221,7 +221,6 @@ public class AdministrationTeamInstanceView extends AbstractView implements Seri
 		List<String> temp = teamService.getAllTeamNames();
 		if (temp==null)
 			return results;
-		getLogger().info("Result list size is " + temp.size());
 		for (String s:temp){
 			if (s!=null){
 				if (s.toLowerCase().contains(query.toLowerCase())){

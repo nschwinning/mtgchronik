@@ -1,5 +1,6 @@
 package mtgchronik.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -126,8 +127,17 @@ public class TeamService {
 	}
 	
 	public List<String> getAllTeamNames(){
-		TypedQuery<String> q = em.createQuery("SELECT DISTINCT td.teamName FROM TableData td",String.class);
-		return q.getResultList();
+		List<String> results = new ArrayList<String>();
+		TypedQuery<TableData> q = em.createQuery("FROM TableData td", TableData.class);
+		List<TableData> rows = q.getResultList();
+		for (TableData d:rows){
+			if (d.getTeamName()!=null&&!d.getTeamName().trim().isEmpty()){
+				if (!results.contains(d.getTeamName())){
+					results.add(d.getTeamName());
+				}
+			}
+		}
+		return results;
 	}
 	
 	public LineUp getLineUpForTeamInstance(TeamInstance teamInstance, int half){
